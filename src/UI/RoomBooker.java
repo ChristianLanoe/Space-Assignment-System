@@ -1,3 +1,4 @@
+package UI;
 
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -8,8 +9,8 @@ public class RoomBooker extends JFrame{
 
 	public static void main(String[] args) {
 		
-		new RoomBooker();
-		//new Request();
+//		new RoomBooker();
+//	new Request();
 	}
 	public RoomBooker(){
 		this.setSize(400,400);
@@ -54,7 +55,7 @@ public static void main(String[] args) {
 		Dimension dim = tk.getScreenSize();
 		int xPos=(dim.width/2)-(this.getWidth()/2);
 		int yPos=(dim.height/2)-(this.getHeight()/2);
-		this.setLocation(xPos,yPos);
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Request");
@@ -101,7 +102,6 @@ public static void main(String[] args) {
 		thePanel.add(eTimeb);
 		
 		thePanel.add(desc);
-		thePanel.add(desca);
 		thePanel.add(descaBar);
 		
 		this.add(thePanel);
