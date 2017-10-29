@@ -1,6 +1,5 @@
 package Room;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class Room {
@@ -8,40 +7,15 @@ public class Room {
 	private int width;
 	private int capacity;
 	private int roomNumber;
-	private Time openTime;
-	private Time closedTime;
 	private ArrayList<Amenity> amenities;
 	
-	public Room(int length, int width, int capacity, int roomNumber,Time openTime, Time closedTime, ArrayList<Amenity> amenities) {
+	public Room(int length, int width, int capacity, int roomNumber, ArrayList<Amenity> amenities) {
 		this.length = length;
 		this.width = width;
 		this.capacity = capacity;
 		this.roomNumber = roomNumber;
-		this.openTime = openTime;
-		this.closedTime =	closedTime;
 		this.amenities = amenities;
 	}
-
-
-	public Time getOpenTime() {
-		return openTime;
-	}
-
-
-	public void setOpenTime(Time openTime) {
-		this.openTime = openTime;
-	}
-
-
-	public Time getClosedTime() {
-		return closedTime;
-	}
-
-
-	public void setClosedTime(Time closedTime) {
-		this.closedTime = closedTime;
-	}
-
 
 	public int getLength() {
 		return length;
