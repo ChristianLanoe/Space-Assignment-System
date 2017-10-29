@@ -1,49 +1,47 @@
 package Schedule;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 public class TimeSpan {
-	private Calendar startTime;
-	private Calendar endTime;
+	private LocalTime startTime;
+	private LocalTime endTime;
 	
-	public TimeSpan(Calendar startTime, Calendar endTime) {
+	public TimeSpan(LocalTime startTime, LocalTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
-
-	public Calendar getStartTime() {
+	
+	public TimeSpan() {}
+	
+	public TimeSpan(LocalTime startTime) {
+		this.startTime = startTime;
+	}
+	
+	public LocalTime getStartTime() {
 		return startTime;
 	}
-
-	public void setStartTime(Calendar startTime) {
-		this.startTime = startTime;
-	}
-
-	public Calendar getEndTime() {
+	
+	public LocalTime getEndTime() {
 		return endTime;
 	}
-
-	public void setEndTime(Calendar endTime) {
-		this.endTime = endTime;
+	
+	public void setStartTime(LocalTime start) {
+		this.startTime = start;
+	}
+	
+	public void setEndtime(LocalTime end) {
+		this.endTime = end;
 	}
 	
 	@Override
 	public String toString() {
-		DateFormat dayOfWeekTime = new SimpleDateFormat("EEEE, hh:mm a",Locale.CANADA);
-		Date start = startTime.getTime();
-		Date end = endTime.getTime();
-		
-		
 		StringBuilder sb = new StringBuilder();
-		
-		sb.append("Time span: ");
-		sb.append(dayOfWeekTime.format(start));
+		DateTimeFormatter dtf = new DateTimeFormatterBuilder().appendPattern("hh:mm a").toFormatter();
+		sb.append(dtf.format(startTime));
 		sb.append(" to ");
-		sb.append(dayOfWeekTime.format(end));
+		sb.append(dtf.format(endTime));
 		
 		return sb.toString();
 	}
