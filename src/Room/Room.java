@@ -1,20 +1,31 @@
 package Room;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Room {
+	private int roomNumber;
+	private RoomType roomType;
+	private int capacity;
+	private ArrayList<Amenity> amenities;
 	private int length;
 	private int width;
-	private int capacity;
-	private int roomNumber;
-	private ArrayList<Amenity> amenities;
 	
-	public Room(int length, int width, int capacity, int roomNumber, ArrayList<Amenity> amenities) {
+	public Room(int roomNumber, RoomType roomType, int capacity, ArrayList<Amenity> amenities, int length, int width) {
+		this.roomNumber = roomNumber;
+		this.roomType = roomType;
+		this.capacity = capacity;
+		this.amenities = amenities;
 		this.length = length;
 		this.width = width;
-		this.capacity = capacity;
-		this.roomNumber = roomNumber;
-		this.amenities = amenities;
+	}
+
+	public RoomType getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
 	}
 
 	public int getLength() {
@@ -59,5 +70,27 @@ public class Room {
 	
 	public void addAmenity(Amenity a) {
 		this.amenities.add(a);
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Room Number: " + roomNumber);
+		sb.append("\n");
+		sb.append("Room Type: " + roomType.toString());
+		sb.append("\n");
+		sb.append("Capacity: " + capacity);
+		sb.append("\n");
+		sb.append("Amenities:\n");
+		for(Iterator<Amenity> i = amenities.iterator(); i.hasNext();) {
+			Amenity a = i.next();
+			sb.append("    ");
+			sb.append(a.toString() +"\n");
+		}
+		sb.append("Length: " + length);
+		sb.append(" Width: " + width);
+		
+		return sb.toString();
 	}
 }
