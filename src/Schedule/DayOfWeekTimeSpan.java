@@ -1,6 +1,7 @@
 package Schedule;
 
 import java.time.*;
+
 public class DayOfWeekTimeSpan {
 	private DayOfWeek dayOfWeek;
 	private TimeSpan timeSpan;
@@ -27,4 +28,8 @@ public class DayOfWeekTimeSpan {
 		return sb.toString();
 	}
 	
+	public int compareDayOfWeek(DayOfWeekTimeSpan other) {
+		
+		return this.dayOfWeek.compareTo(other.getDayOfWeek());
+	}
 }

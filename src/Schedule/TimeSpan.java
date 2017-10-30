@@ -35,6 +35,10 @@ public class TimeSpan {
 		this.endTime = end;
 	}
 	
+	public boolean startsBefore(TimeSpan span) {
+		return startTime.isBefore(span.getStartTime());
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
