@@ -1,15 +1,19 @@
 package Request;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import Room.Room;
 import Utils.Contact;
-import java.util.Calendar;
+
 public class Request extends Contact{
 	private Room room;
-	private Calendar startTime;
-	private Calendar endTime;
+	private LocalDateTime startTime;
+	private LocalDateTime endTime;
 	private String description;
+	private String id;
 	
-	public Request(String FName, String LName,long phoneNumber, String eMail, Room room, Calendar startTime, Calendar endTime, String description) {
+	public Request(String FName, String LName,long phoneNumber, String eMail, Room room, LocalDateTime startTime, LocalDateTime endTime, String description) {
 		super(FName, LName, phoneNumber, eMail);
 		this.room = room;
 		this.startTime = startTime;
@@ -24,19 +28,19 @@ public class Request extends Contact{
 		this.room = room;
 	}
 
-	public Calendar getStartTime() {
+	public LocalDateTime getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Calendar startTime) {
+	public void setStartTime(LocalDateTime startTime) {
 		this.startTime = startTime;
 	}
 
-	public Calendar getEndTime() {
+	public LocalDateTime getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Calendar endTime) {
+	public void setEndTime(LocalDateTime endTime) {
 		this.endTime = endTime;
 	}
 
@@ -46,5 +50,21 @@ public class Request extends Contact{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEEE MMMM dd,YYYY hh:mm a");
+		sb.append("REQUEST\n");
+		sb.append("-----------------------\n");
+		sb.append("Room " + room.getRoomNumber());
+		sb.append("\n");
+		sb.append("Start Time: " + dtf.format(startTime));
+		sb.append("\n");
+		sb.append("End Time: " + dtf.format(endTime));
+		
+		
+		return sb.toString();
 	}
 }
