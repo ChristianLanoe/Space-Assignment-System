@@ -28,4 +28,8 @@ public class RoomDB {
 		
 		return null;
 	}
+	
+	public void addRoom(Room room) {
+		Rooms.add(room);
+	}
 }
