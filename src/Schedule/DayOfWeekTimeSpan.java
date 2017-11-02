@@ -22,9 +22,13 @@ public class DayOfWeekTimeSpan {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Day of Week: ");
 		sb.append(dayOfWeek.toString());
 		sb.append("\n");
+		sb.append("From: ");
 		sb.append(timeSpan.toString());
+		
 		return sb.toString();
 	}
 }
