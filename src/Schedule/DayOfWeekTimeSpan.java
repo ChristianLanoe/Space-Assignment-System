@@ -2,6 +2,11 @@ package Schedule;
 
 import java.time.DayOfWeek;
 
+/*
+	Class that contains the day of the week (Monday, Tuesday, Wednesday, etc.) and a time span
+	Used for BookableTimes class
+*/
+
 public class DayOfWeekTimeSpan {
 	private DayOfWeek dayOfWeek;
 	private TimeSpan timeSpan;
