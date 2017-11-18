@@ -64,7 +64,6 @@ public class Request extends Contact{
 		sb.append("\n");
 		sb.append("End Time: " + dtf.format(endTime));
 		
-		
 		return sb.toString();
 	}
 }
