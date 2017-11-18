@@ -1,7 +1,7 @@
 package UI;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,97 +11,101 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class RequestPanel {
-	private final JPanel requestPanel;
-	private Dimension dimension;
-	private JLabel fName;
-	private JLabel lName;
-	private JLabel email;
-	private JLabel roomNum;
-	private JLabel sTime;
-	private JLabel eTime;
-	private JLabel desc;
-	private JTextField fNameField;
-	private JTextField lNameField;
-	private JTextField emailField;
-	private JTextField roomIdField;
-	private JComboBox sTimeComboBox;
-	private JComboBox eTimeComboBox;
-	private JTextArea descriptionArea;
-	private String[] petStrings = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
+// Class that creates the panel that holds the request form
+public class RequestPanel{
+	private final JPanel panel;
+	private String[] hours = { "9:00", "10:00", "11:00", "12:00", "13:00" };
 
+	public RequestPanel() {	
+		panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
 	
-	private int fNameFieldLength = 15;
-	private int lNameFieldLength = 15;
-	private int emailFieldLength = 20;
-	private int roomIdFieldLength = 5;
-	private int COLUMNS = 2;
-	private int V_GAP = 0;
-	
-//	private GridBagConstraints lastConstraints = null;
-//	private GridBagConstraints middleConstraints = null;
-//	private GridBagConstraints labelConstraints = null;
-//	
-	
-	public RequestPanel(Dimension d) {
-		requestPanel = new JPanel();
-		this.dimension = d;
-		requestPanel.setSize(dimension);
-		requestPanel.setLayout(new GridLayout(0,COLUMNS,0,V_GAP));
+		GridBagConstraints gbc = new GridBagConstraints();
 		
-		createLabels();
-		createFillableFields();
+		//Creating Labels for fields
+		JLabel fName = new JLabel("First Name: ");
+		JLabel lName = new JLabel("Last Name: ");
+		JLabel email = new JLabel("Email: ");
+		JLabel roomNum = new JLabel("Room Number: ");
+		JLabel sTime = new JLabel("Start Time: ");
+		JLabel eTime = new JLabel("End Time: ");
+		JLabel desc = new JLabel("Description: ");
 		
+		//Creating Fields
+		JTextField fNameField = new JTextField(15);
+		JTextField lNameField = new JTextField(15);
+		JTextField emailField = new JTextField(20);
+		JTextField roomIdField = new JTextField(5);
+		JComboBox<String> sTimeComboBox = new JComboBox<String>(hours);
+		JComboBox<String> eTimeComboBox = new JComboBox<String>(hours);
+		JTextArea descriptionArea = new JTextArea(5,20);
 		descriptionArea.setLineWrap(true);
 		JScrollPane descaBar = new JScrollPane(descriptionArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		//Left Justifying all components
+		gbc.anchor = GridBagConstraints.LINE_END;
+
+		//Adding labels to panel
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		panel.add(fName,gbc);
+		
+		gbc.gridy ++;
+		panel.add(lName,gbc);
+		
+		gbc.gridy ++;
+		panel.add(email,gbc);
+		
+		gbc.gridy ++;
+		panel.add(roomNum,gbc);
+		
+		gbc.gridy ++;
+		panel.add(sTime,gbc);
+		
+		gbc.gridy ++;
+		panel.add(eTime,gbc);
+		
+		gbc.gridy ++;
+		panel.add(desc,gbc);
+
+		//Adding fields to panel
+		//Right justifying all components
+		gbc.anchor = GridBagConstraints.LINE_START;
+		gbc.gridx = 1;
+		gbc.gridy = 0; 
+		panel.add(fNameField,gbc);
+		
+		gbc.gridy ++;
+		panel.add(lNameField,gbc);
+		
+		gbc.gridy ++;
+		panel.add(emailField,gbc);
+		
+		gbc.gridy ++;
+		panel.add(roomIdField,gbc);
+		
+		gbc.gridy ++;
+		panel.add(sTimeComboBox,gbc);
+		
+		gbc.gridy ++;
+		panel.add(eTimeComboBox,gbc);
+		
+		gbc.gridy ++;
+		panel.add(descaBar,gbc);
+		
+		//Adding a separate Panel for the submit button
+		JPanel submitButtonPanel = new JPanel();
+		GridBagConstraints submitConstraints = new GridBagConstraints();
 		JButton submitButton = new JButton("Submit");
+		submitButtonPanel.add(submitButton, submitConstraints);
+		gbc.gridy ++;
+		gbc.anchor = GridBagConstraints.LINE_END;
+		panel.add(submitButtonPanel,gbc);
 		
-		requestPanel.add(fName);
-		requestPanel.add(fNameField);
-		
-		requestPanel.add(lName);
-		requestPanel.add(lNameField);
-		
-		requestPanel.add(email);
-		requestPanel.add(emailField);
-		
-		requestPanel.add(roomNum);
-		requestPanel.add(roomIdField);
-		
-		requestPanel.add(sTime);
-		requestPanel.add(sTimeComboBox);
-		
-		requestPanel.add(eTime);
-		requestPanel.add(eTimeComboBox);
-		
-		requestPanel.add(desc);
-		requestPanel.add(descaBar);
-		
-		requestPanel.add(submitButton);
-		requestPanel.setFocusable(true); 
+		panel.setFocusable(true); 
 	}
-	
-	private void createLabels() {
-		fName = new JLabel("First Name: ");
-		lName = new JLabel("Last Name: ");
-		email = new JLabel("Email: ");
-		roomNum = new JLabel("Room Number: ");
-		sTime = new JLabel("Start Time: ");
-		eTime = new JLabel("End Time: ");
-		desc = new JLabel("Description: ");
-	}
-	
-	private void createFillableFields() {
-		fNameField = new JTextField(fNameFieldLength);
-		lNameField = new JTextField(lNameFieldLength);
-		emailField = new JTextField(emailFieldLength);
-		roomIdField = new JTextField(roomIdFieldLength);
-		sTimeComboBox = new JComboBox<String>(petStrings);
-		eTimeComboBox = new JComboBox<String>(petStrings);
-		descriptionArea = new JTextArea(2,1);
-	}
-	
-	public JPanel getRequestPanel() {
-		return this.requestPanel;
+	// Returns the panel created by this class
+	public JPanel getPanel() {
+		return panel;
 	}
 }
