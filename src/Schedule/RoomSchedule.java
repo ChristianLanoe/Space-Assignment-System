@@ -6,6 +6,8 @@ import java.util.Iterator;
 import Request.Request;
 import Room.Room;
 
+//Class that refers to a room and the times it is able to be booked and the times it is booked
+
 public class RoomSchedule {
 	private Room room;
 	private ArrayList<Request> bookings;
