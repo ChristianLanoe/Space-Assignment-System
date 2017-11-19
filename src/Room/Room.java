@@ -1,21 +1,19 @@
 package Room;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
+/*
+ * Class that describes a room and its properties
+*/
 public class Room {
 	private int roomNumber;
 	private RoomType roomType;
 	private int capacity;
-	private ArrayList<Amenity> amenities;
 	private int length;
 	private int width;
 	
-	public Room(int roomNumber, RoomType roomType, int capacity, ArrayList<Amenity> amenities, int length, int width) {
+	public Room(int roomNumber, RoomType roomType, int capacity, int length, int width) {
 		this.roomNumber = roomNumber;
 		this.roomType = roomType;
 		this.capacity = capacity;
-		this.amenities = amenities;
 		this.length = length;
 		this.width = width;
 	}
@@ -59,18 +57,6 @@ public class Room {
 	public void setRoomNumber(int roomNumber) {
 		this.roomNumber = roomNumber;
 	}
-
-	public ArrayList<Amenity> getAmenities() {
-		return amenities;
-	}
-
-	public void setAmenities(ArrayList<Amenity> amenities) {
-		this.amenities = amenities;
-	}
-	
-	public void addAmenity(Amenity a) {
-		this.amenities.add(a);
-	}
 	
 	@Override
 	public String toString() {
@@ -82,12 +68,6 @@ public class Room {
 		sb.append("\n");
 		sb.append("Capacity: " + capacity);
 		sb.append("\n");
-		sb.append("Amenities:\n");
-		for(Iterator<Amenity> i = amenities.iterator(); i.hasNext();) {
-			Amenity a = i.next();
-			sb.append("    ");
-			sb.append(a.toString() +"\n");
-		}
 		sb.append("Length: " + length);
 		sb.append(" Width: " + width);
 		
