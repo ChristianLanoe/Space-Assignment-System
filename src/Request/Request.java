@@ -3,29 +3,29 @@ package Request;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import Room.Room;
 import Utils.Contact;
 
 public class Request extends Contact{
-	private Room room;
+	private int roomNum;
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 	private String description;
 	private String id;
 	
-	public Request(String FName, String LName,long phoneNumber, String eMail, Room room, LocalDateTime startTime, LocalDateTime endTime, String description) {
+	public Request(String FName, String LName,long phoneNumber, String eMail, int roomNum, LocalDateTime startTime, LocalDateTime endTime, String description) {
 		super(FName, LName, phoneNumber, eMail);
-		this.room = room;
+		this.roomNum = roomNum;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.description = description;
 	}
 
-	public Room getRoom() {
-		return room;
+	public int getRoomNum() {
+		return roomNum;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRoomNum(int roomNum) {
+		this.roomNum = roomNum;
 	}
 
 	public LocalDateTime getStartTime() {
@@ -52,13 +52,21 @@ public class Request extends Contact{
 		this.description = description;
 	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEEE MMMM dd,YYYY hh:mm a");
 		sb.append("REQUEST\n");
 		sb.append("-----------------------\n");
-		sb.append("Room " + room.getRoomNumber());
+		sb.append("Room " + roomNum);
 		sb.append("\n");
 		sb.append("Start Time: " + dtf.format(startTime));
 		sb.append("\n");
