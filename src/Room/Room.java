@@ -5,25 +5,15 @@ package Room;
 */
 public class Room {
 	private int roomNumber;
-	private RoomType roomType;
 	private int capacity;
 	private int length;
 	private int width;
 	
-	public Room(int roomNumber, RoomType roomType, int capacity, int length, int width) {
+	public Room(int roomNumber, int capacity, int length, int width) {
 		this.roomNumber = roomNumber;
-		this.roomType = roomType;
 		this.capacity = capacity;
 		this.length = length;
 		this.width = width;
-	}
-
-	public RoomType getRoomType() {
-		return roomType;
-	}
-
-	public void setRoomType(RoomType roomType) {
-		this.roomType = roomType;
 	}
 
 	public int getLength() {
@@ -63,8 +53,6 @@ public class Room {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Room Number: " + roomNumber);
-		sb.append("\n");
-		sb.append("Room Type: " + roomType.toString());
 		sb.append("\n");
 		sb.append("Capacity: " + capacity);
 		sb.append("\n");
