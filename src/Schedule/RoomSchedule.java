@@ -1,6 +1,7 @@
 package Schedule;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 import Request.Request;
@@ -8,7 +9,7 @@ import Room.Room;
 
 //Class that refers to a room and the times it is able to be booked and the times it is booked
 
-public class RoomSchedule {
+public class RoomSchedule implements Comparable<RoomSchedule>{
 	private Room room;
 	private ArrayList<Request> bookings;
 	private ArrayList<DayOfWeekTimeSpan> bookableTimes;
@@ -21,9 +22,23 @@ public class RoomSchedule {
 	
 	public void addBookableTime(DayOfWeekTimeSpan span) {
 		bookableTimes.add(span);
+		Collections.sort(bookableTimes);
 	}
 	
-	public String getBookableTimesMessage() {
+	public void addBooking(Request request) {
+		bookings.add(request);
+		Collections.sort(bookings);
+	}
+	
+	public ArrayList<DayOfWeekTimeSpan> getBookableTimes() {
+		return bookableTimes;
+	}
+	
+	public ArrayList<Request> getBookings() {
+		return bookings;
+	}
+	
+	public String getBookableTimesString() {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Room ").append(room.getRoomNumber());
@@ -47,6 +62,12 @@ public class RoomSchedule {
 	
 	public void addBookings(Request r) {
 		bookings.add(r);
+	}
+
+	@Override
+	public int compareTo(RoomSchedule rs) {
+		int roomNum = rs.getRoom().getRoomNumber();
+		return this.room.getRoomNumber() - roomNum;
 	}
 	
 //	@Override 
