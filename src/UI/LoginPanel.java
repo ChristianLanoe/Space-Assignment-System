@@ -1,5 +1,5 @@
 package UI;
-
+import java.awt.event.*;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -40,6 +40,17 @@ public class LoginPanel {
 		GridBagConstraints submitConstraints = new GridBagConstraints();
 		JButton submitButton = new JButton("Submit");
 		submitButtonPanel.add(submitButton, submitConstraints);
+		class Action implements ActionListener{//Return the login information
+			
+			public void actionPerformed (ActionEvent e){
+			//	String user = userField.getText();
+			//	String pass = passField.getText();
+			//
+			// Username and password for login
+			//
+			}
+		}
+		submitButton.addActionListener(new Action());
 		gbc.gridy ++;
 		gbc.anchor = GridBagConstraints.LINE_END;
 		panel.add(submitButtonPanel,gbc);
