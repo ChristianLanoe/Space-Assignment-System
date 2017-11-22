@@ -1,5 +1,6 @@
 package Schedule;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -60,8 +61,34 @@ public class RoomSchedule implements Comparable<RoomSchedule>{
 		this.room = room;
 	}
 	
-	public void addBookings(Request r) {
-		bookings.add(r);
+	//Returns a RoomSchedule for a specific date
+	public RoomSchedule forDate(LocalDate date) {
+		RoomSchedule daySchedule = new RoomSchedule(this.room);
+		//Iterate through each element in bookableTimes
+		for(Iterator<DayOfWeekTimeSpan> i = bookableTimes.iterator(); i.hasNext();) {
+			DayOfWeekTimeSpan dow_ts = i.next();
+			//Only add DayOfWeekTimeSpans that have the same day of week as the date
+			if(dow_ts.getDayOfWeek() == date.getDayOfWeek()) {
+					daySchedule.addBookableTime(dow_ts);
+			}
+			//Since all DayOfWeekTimeSpans are sorted, once you find a DayOfWeek that is greater than the date, you can stop iterating
+			if(dow_ts.getDayOfWeek().getValue() > date.getDayOfWeek().getValue()) {
+				break;
+			}
+		}
+		for(Iterator<Request> i = bookings.iterator(); i.hasNext();) {
+			Request request = i.next();
+			//Only add Requests that start on the same date as the date
+			//StartTime uses LocalDateTime, so we convert it to a LocalDate
+			if(request.getStartTime().toLocalDate().compareTo(date) == 0) {
+					daySchedule.addBooking(request);					
+			}
+			//Requests are sorted by StartTime, same logic as above for DayOfWeekTimeSpans
+			if(request.getStartTime().toLocalDate().isAfter(date)) {
+				break;
+			}
+		}
+		return daySchedule;
 	}
 
 	@Override
@@ -70,16 +97,19 @@ public class RoomSchedule implements Comparable<RoomSchedule>{
 		return this.room.getRoomNumber() - roomNum;
 	}
 	
-//	@Override 
-//	public String toString() {
-//		StringBuilder sb = new StringBuilder();
-//		
-//		if(!.isEmpty()) {
-//			sb.append(room.getRoomNumber());
-//			sb.append(" is booked for ");
-//			for(Iterator<TimeSpan> i = bookable)
-//		}
-//		
-//		return sb.toString();
-//	}
+	@Override 
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Room " + room.getRoomNumber() + " is bookable for: \n");
+		for(Iterator<DayOfWeekTimeSpan> i = this.bookableTimes.iterator();i.hasNext();) {
+			DayOfWeekTimeSpan dow_ts = i.next();
+			sb.append(dow_ts.toString() + "\n");
+		}
+		for(Iterator<Request> i = this.bookings.iterator();i.hasNext();) {
+			Request request = i.next();
+			sb.append("\n");
+			sb.append(request.toString() + "\n");
+		}	
+		return sb.toString();
+	}
 }
