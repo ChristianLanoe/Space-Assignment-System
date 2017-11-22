@@ -9,6 +9,7 @@ public class Room implements Comparable<Room>{
 	private int length;
 	private int width;
 	
+	//Creates Room object
 	public Room(int roomNumber, int capacity, int length, int width) {
 		this.roomNumber = roomNumber;
 		this.capacity = capacity;
@@ -48,6 +49,7 @@ public class Room implements Comparable<Room>{
 		this.roomNumber = roomNumber;
 	}
 	
+	//toString to print out the information of the Request object
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -61,7 +63,7 @@ public class Room implements Comparable<Room>{
 		
 		return sb.toString();
 	}
-
+	//compareTo to compare Room objects
 	@Override
 	public int compareTo(Room r) {
 		return this.getRoomNumber() - r.getRoomNumber();
