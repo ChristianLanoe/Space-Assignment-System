@@ -23,19 +23,25 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 		this.bookings = new ArrayList<Request>();
 	}
 
+	//Populates a Boolean array of length 24 to represent booked or unbooked time slots
 	public void populateAvailable(ArrayList<DayOfWeekTimeSpan> bookableTimes, ArrayList<Request> bookings) {
+		//Array created
 		available = new boolean[24];
+		//Iterate through to find when the given room can be booked
 		for (DayOfWeekTimeSpan dow_ts : bookableTimes) {
 			int start = dow_ts.getTimeSpan().getStartTime().getHour();
 			int end = dow_ts.getTimeSpan().getEndTime().getHour();
+			//Starting from the room start time, it changes the value to true until it reaches the room end time
 			for (int i = start; i < end; i++) {
 				available[i] = true;
 			}
 		}
 
+		//Iterates through the same array to fill in booked times
 		for (Request request : bookings) {
 			int start = request.getStartTime().getHour();
 			int end = request.getEndTime().getHour();
+			//Starting at the request start time, it changes the value to false until it reaches the request end time
 			for (int i = start; i < end; i++) {
 				available[i] = false;
 			}
@@ -128,6 +134,7 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 		return this.room.getRoomNumber() - roomNum;
 	}
 
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

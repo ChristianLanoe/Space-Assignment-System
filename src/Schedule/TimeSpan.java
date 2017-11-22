@@ -8,6 +8,7 @@ public class TimeSpan {
 	private LocalTime startTime;
 	private LocalTime endTime;
 	
+	//Creates TimeSpan object
 	public TimeSpan(LocalTime startTime, LocalTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -39,6 +40,7 @@ public class TimeSpan {
 		return startTime.isBefore(span.getStartTime());
 	}
 	
+	//toString to print out the information of the TimeSpan object
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

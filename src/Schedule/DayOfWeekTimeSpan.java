@@ -11,6 +11,10 @@ public class DayOfWeekTimeSpan implements Comparable<DayOfWeekTimeSpan>{
 	private DayOfWeek dayOfWeek;
 	private TimeSpan timeSpan;
 	
+	/* Creates a DayOfWeekTimeSpan object 
+	 * to hold the time a room is available
+	 * for each day of the week
+	 */
 	public DayOfWeekTimeSpan (DayOfWeek day, TimeSpan timeSpan) {
 		this.dayOfWeek = day;
 		this.timeSpan = timeSpan;
