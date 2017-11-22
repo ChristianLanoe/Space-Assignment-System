@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
+/*
+ * Start and End DateTimes for requests
+*/
 public class DateTime_TimeSpan {
 	private LocalDateTime startDateTime;
 	private LocalDateTime endDateTime;
@@ -17,7 +20,6 @@ public class DateTime_TimeSpan {
 		this.startDateTime = startDateTime;
 		this.endDateTime = null;
 	}
-	
 	
 	@Override
 	public String toString() {
