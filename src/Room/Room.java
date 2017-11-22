@@ -3,7 +3,7 @@ package Room;
 /*
  * Class that describes a room and its properties
 */
-public class Room {
+public class Room implements Comparable<Room>{
 	private int roomNumber;
 	private int capacity;
 	private int length;
@@ -60,5 +60,10 @@ public class Room {
 		sb.append(" Width: " + width);
 		
 		return sb.toString();
+	}
+
+	@Override
+	public int compareTo(Room r) {
+		return this.getRoomNumber() - r.getRoomNumber();
 	}
 }
