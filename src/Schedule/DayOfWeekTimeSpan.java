@@ -7,7 +7,7 @@ import java.time.DayOfWeek;
 	Used for BookableTimes class
 */
 
-public class DayOfWeekTimeSpan {
+public class DayOfWeekTimeSpan implements Comparable<DayOfWeekTimeSpan>{
 	private DayOfWeek dayOfWeek;
 	private TimeSpan timeSpan;
 	
@@ -24,16 +24,27 @@ public class DayOfWeekTimeSpan {
 		this.dayOfWeek = day;
 	}
 	
+	public TimeSpan getTimeSpan() {
+		return this.timeSpan;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("Day of Week: ");
 		sb.append(dayOfWeek.toString());
-		sb.append("\n");
-		sb.append("From: ");
+		sb.append(" From: ");
 		sb.append(timeSpan.toString());
 		
 		return sb.toString();
+	}
+
+	@Override
+	public int compareTo(DayOfWeekTimeSpan week_ts) {
+		int compareDay = week_ts.getDayOfWeek().getValue();
+		if(this.dayOfWeek.getValue()-compareDay == 0) {
+			return this.timeSpan.getStartTime().compareTo(week_ts.getTimeSpan().getStartTime());
+		}
+		return this.dayOfWeek.getValue()-compareDay;
 	}
 }
