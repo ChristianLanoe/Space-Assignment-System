@@ -1,9 +1,13 @@
 package Tests;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import Request.Request;
 import Room.Room;
+import Room.RoomDB;
 import Schedule.Calendar;
 import Schedule.DayOfWeekTimeSpan;
 import Schedule.RoomSchedule;
@@ -21,6 +25,14 @@ public class MakeRoomSchedules {
 		Room e = new Room(3010,75,50,50);
 		Room f = new Room(4012,25,30,60);
 		
+		RoomDB rooms = new RoomDB();
+		rooms.addRoom(a);
+		rooms.addRoom(b);
+		rooms.addRoom(c);
+		rooms.addRoom(d);
+		rooms.addRoom(e);
+		rooms.addRoom(f);
+		
 		//Creating bookableTimes for Room 4060
 		RoomSchedule a_schedule = new RoomSchedule(a);
 		LocalTime a_startTime =  LocalTime.of(6, MINUTE);
@@ -34,13 +46,13 @@ public class MakeRoomSchedules {
 		DayOfWeekTimeSpan a_S = new DayOfWeekTimeSpan(DayOfWeek.SATURDAY, a_ts);
 		DayOfWeekTimeSpan a_Su = new DayOfWeekTimeSpan(DayOfWeek.SUNDAY, a_ts);
 		
-		a_schedule.addBookableTime(a_M);
+		a_schedule.addBookableTime(a_F);
 		a_schedule.addBookableTime(a_T);
 		a_schedule.addBookableTime(a_W);
-		a_schedule.addBookableTime(a_R);
-		a_schedule.addBookableTime(a_F);
-		a_schedule.addBookableTime(a_S);
 		a_schedule.addBookableTime(a_Su);
+		a_schedule.addBookableTime(a_M);
+		a_schedule.addBookableTime(a_S);
+		a_schedule.addBookableTime(a_R);
 
 		//Creating bookableTimes for Room 3052
 		RoomSchedule b_schedule = new RoomSchedule(b);
@@ -121,7 +133,7 @@ public class MakeRoomSchedules {
 		TimeSpan e_weekend = new TimeSpan(LocalTime.of(6, MINUTE),LocalTime.of(18, MINUTE));
 		DayOfWeekTimeSpan e_M = new DayOfWeekTimeSpan(DayOfWeek.MONDAY, e_ts);
 		DayOfWeekTimeSpan e_T = new DayOfWeekTimeSpan(DayOfWeek.TUESDAY, e_ts);
-		DayOfWeekTimeSpan e_W = new DayOfWeekTimeSpan(DayOfWeek.WEDNESDAY, e_ts);
+//		DayOfWeekTimeSpan e_W = new DayOfWeekTimeSpan(DayOfWeek.WEDNESDAY, e_ts);
 		DayOfWeekTimeSpan e_R = new DayOfWeekTimeSpan(DayOfWeek.THURSDAY, e_ts);
 		DayOfWeekTimeSpan e_F = new DayOfWeekTimeSpan(DayOfWeek.FRIDAY, e_ts);
 		DayOfWeekTimeSpan e_S = new DayOfWeekTimeSpan(DayOfWeek.SATURDAY, e_weekend);
@@ -129,7 +141,7 @@ public class MakeRoomSchedules {
 		
 		e_schedule.addBookableTime(e_M);
 		e_schedule.addBookableTime(e_T);
-		e_schedule.addBookableTime(e_W);
+//		e_schedule.addBookableTime(e_W);
 		e_schedule.addBookableTime(e_R);
 		e_schedule.addBookableTime(e_F);
 		e_schedule.addBookableTime(e_S);
@@ -166,12 +178,38 @@ public class MakeRoomSchedules {
 		cal.addRoomSchedule(e_schedule);
 		cal.addRoomSchedule(f_schedule);
 		
-		System.out.println("Printing out whole calendar (Requests not implemented yet)");
-		System.out.println();
-		System.out.println(cal.toString());
-		System.out.println(cal.getRoomScheduleString(4012));
+		//LocalDateTimes for a request
+		LocalDateTime as = LocalDateTime.of(2017, 11, 22, 10, MINUTE);
+		LocalDateTime ae = LocalDateTime.of(2017, 11, 22, 12, MINUTE);	
 		
-		System.out.println(cal.getRoomSchedule(3010).getBookableTimesString());
+		
+		Request ar = new Request("Eric Roy", "Elli", 7097463956L, "eelli@mun.ca",1040,as.plusHours(2),ae.plusHours(2),"Testing Request");
+		Request ar1 = new Request("Eric Roy", "Elli",7097463956L,"eelli@mun.ca",1040,as,ae,"Testing Request");
+		
+		cal.getRoomSchedule(1040).addBooking(ar);
+		cal.getRoomSchedule(1040).addBooking(ar1);
+		
+		System.out.println("=================================================");
+		System.out.println("Printing out whole calendar");
+		System.out.println("=================================================");
+		System.out.println(cal.toString());
+		
+		System.out.println("=================================================");
+		System.out.println("Printing out whole Schedule for room 1040:");
+		System.out.println("=================================================");
+		System.out.println(cal.getRoomScheduleString(1040));
+		
+		System.out.println("=================================================");
+		System.out.println("Printing bookable times for Room 1040:");
+		System.out.println("=================================================");
+		System.out.println(cal.getRoomSchedule(1040).getBookableTimesString());
+		
+		System.out.println("=================================================");
+		LocalDate now = LocalDate.now().plusDays(1);
+		DayOfWeek dayOfWeek = now.getDayOfWeek();
+		System.out.println("Calendar for " + dayOfWeek + " " + now + ":");
+		System.out.println("=================================================");
+		System.out.print(cal.forDate(LocalDate.now()).toString());
 		
 	}
 }
