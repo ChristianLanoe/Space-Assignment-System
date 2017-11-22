@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import Utils.Contact;
 
-public class Request extends Contact{
+public class Request extends Contact implements Comparable<Request>{
 	private int roomNum;
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
@@ -73,5 +73,13 @@ public class Request extends Contact{
 		sb.append("End Time: " + dtf.format(endTime));
 		
 		return sb.toString();
+	}
+	
+	@Override
+	public int compareTo(Request request) {
+		if(this.getRoomNum() == request.getRoomNum()) {
+			return this.getStartTime().compareTo(request.getStartTime());
+		}
+		return this.getRoomNum()-request.getRoomNum();
 	}
 }
