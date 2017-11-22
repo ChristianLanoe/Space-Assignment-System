@@ -12,6 +12,7 @@ public class Request extends Contact implements Comparable<Request>{
 	private String description;
 	private String id;
 	
+	//Creates a Request object
 	public Request(String FName, String LName,long phoneNumber, String eMail, int roomNum, LocalDateTime startTime, LocalDateTime endTime, String description) {
 		super(FName, LName, phoneNumber, eMail);
 		this.roomNum = roomNum;
@@ -59,7 +60,7 @@ public class Request extends Contact implements Comparable<Request>{
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+	//toString to print out the information of the Request object
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -75,6 +76,7 @@ public class Request extends Contact implements Comparable<Request>{
 		return sb.toString();
 	}
 	
+	//compareTo to order the Request objects by start time
 	@Override
 	public int compareTo(Request request) {
 		if(this.getRoomNum() == request.getRoomNum()) {
