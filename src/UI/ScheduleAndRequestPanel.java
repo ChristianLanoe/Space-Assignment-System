@@ -7,6 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
+
 
 public class ScheduleAndRequestPanel {
 	private final JPanel panel;
@@ -17,10 +21,10 @@ public class ScheduleAndRequestPanel {
 
 		GridBagConstraints gbc = new GridBagConstraints();
 
-		JPanel SchedulePanel = new JPanel();
+		JPanel ScheduleSection = new JPanel();
 		JPanel RequestSection = new JPanel();
 		
-		SchedulePanel.add(new CalendarPanel().getPanel());
+		ScheduleSection.add(new CalendarPanel().getPanel());
 		RequestSection.add(new RequestPanel().getPanel());
 
 		// Adding Log-in Button
@@ -36,16 +40,24 @@ public class ScheduleAndRequestPanel {
 		
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		JLabel allocSchedule = new JLabel("Allocation Schedule");
+		JLabel allocSchedule = new JLabel("\t Allocation Schedule");
+		gbc.anchor = GridBagConstraints.LINE_START;
 		panel.add(allocSchedule,gbc);
+		UtilDateModel model = new UtilDateModel();
+		JDatePanelImpl datePanel = new JDatePanelImpl(model);
+		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
+		gbc.anchor = GridBagConstraints.LINE_END;
+		panel.add(datePicker,gbc);
+
 		
 		gbc.gridx = 1;
+		gbc.anchor = GridBagConstraints.CENTER;
 		JLabel request = new JLabel("Room Requests");
 		panel.add(request, gbc);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 2;
-		panel.add(SchedulePanel, gbc);
+		panel.add(ScheduleSection, gbc);
 		
 		gbc.gridx = 1;
 		panel.add(RequestSection, gbc);
