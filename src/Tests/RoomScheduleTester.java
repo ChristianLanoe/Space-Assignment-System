@@ -4,7 +4,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import Room.Amenity;
 import Room.Room;
-import Room.RoomType;
 import Schedule.DayOfWeekTimeSpan;
 import Schedule.RoomSchedule;
 import Schedule.TimeSpan;
@@ -16,7 +15,7 @@ public class RoomScheduleTester {
 		amenities.add(Amenity.OverheadProjector);
 		amenities.add(Amenity.TV);
 		
-		Room firstRoom = new Room(3001, RoomType.Classroom, 50, amenities, 40, 50);
+		Room firstRoom = new Room(3001, 50, 40, 50);
 		
 		RoomSchedule rs = new RoomSchedule(firstRoom);
 		
@@ -34,6 +33,6 @@ public class RoomScheduleTester {
 		rs.addBookableTime(dts1);
 		rs.addBookableTime(dts2);
 		
-		System.out.println(rs.getBookableTimesMessage());
+		System.out.println(rs.getBookableTimesString());
 	}
 }
