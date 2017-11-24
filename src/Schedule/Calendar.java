@@ -34,7 +34,35 @@ public class Calendar {
 		}
 		return dateCalendar;
 	}
+	
+	public int getLength() {
+		return calendar.size();
+	}
 
+	public Integer[] getRoomArray(Calendar cal) {
+		Integer[] result = new Integer[cal.getLength()];
+		
+		for(int i = 0; i<cal.getLength();i++) {
+			result[i] = Integer.valueOf(cal.calendar.get(i).getRoom().getRoomNumber());
+		}
+		
+		return result;
+	}
+	
+	public Boolean[][] getDateArray(Calendar cal){
+//		Calendar forDate = cal.forDate(date);
+		boolean[] temp = new boolean[24];
+		Boolean[][] result = new Boolean[cal.getLength()][24];
+		
+		for(int i = 0; i<cal.getLength();i++) {
+			temp = cal.calendar.get(i).getAvailable();
+			for(int j = 0; j<temp.length;j++) {
+				result[i][j] = Boolean.valueOf(temp[j]);
+			}
+		}
+		return result;
+	}
+	
 	//returns a string of all the rooms, their bookable times and their approved requests
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
