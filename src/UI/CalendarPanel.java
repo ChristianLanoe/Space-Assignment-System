@@ -234,6 +234,7 @@ public class CalendarPanel {
 		
 		cal.getRoomSchedule(1040).addBooking(ar);
 		cal.getRoomSchedule(1040).addBooking(ar1);
+		//Test line
 	}
 	
 	public JPanel getPanel() {
