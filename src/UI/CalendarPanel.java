@@ -1,15 +1,19 @@
 package UI;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import Request.Request;
 import Room.Room;
@@ -23,6 +27,7 @@ import Schedule.TimeSpan;
 public class CalendarPanel {
 	JPanel panel;
 	Calendar cal;
+	JTable table;
 	
 	public CalendarPanel() {
 		panel = new JPanel();
@@ -49,17 +54,46 @@ public class CalendarPanel {
 		
 		Boolean[][] data = cal.getDateArray(cal.forDate(LocalDate.now()));
 		
-		JTable table = new JTable(data, columnNames);
-		table.getTableHeader().setReorderingAllowed(false);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table.setGridColor(Color.GRAY);
-		table.setShowVerticalLines(true);
+		table = new JTable(data, columnNames) {
+			@Override
+			public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int columnIndex) {
+				Component component = super.prepareRenderer(renderer,rowIndex,columnIndex);
+				if(getValueAt(rowIndex,columnIndex).equals(false)) {
+					component.setForeground(Color.RED);
+					component.setBackground(Color.RED);
+				}
+				if(getValueAt(rowIndex,columnIndex).equals(true)) {
+					component.setForeground(Color.GREEN);
+					component.setBackground(Color.GREEN);
+				}
+				return component;
+			}
+		};
+		
+		setTablePreferences();
+		
 //		Making the table scrollable
 		JScrollPane tableScroll = new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 //		tableScroll.setRowHeaderView(rowHeader);
 		
 		panel.add(tableScroll);
 	}
+	
+	public void setTablePreferences() {
+		table.getTableHeader().setReorderingAllowed(false);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setGridColor(Color.GRAY);
+		table.setRowHeight(30);
+		table.setShowVerticalLines(true);
+		setJTableColumnsWidth(table,30);
+	}
+	public static void setJTableColumnsWidth(JTable table, int tablePreferredWidth) {
+	    for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+	        TableColumn column = table.getColumnModel().getColumn(i);
+	        column.setPreferredWidth(tablePreferredWidth);
+	    }
+	}
+	
 	private void initializeRoomSchedules() {
 		int MINUTE = 0;
 		
