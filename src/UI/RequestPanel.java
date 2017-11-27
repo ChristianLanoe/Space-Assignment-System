@@ -4,27 +4,37 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
+import javax.swing.ButtonGroup;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Request.Request;
+import Schedule.DayOfWeekTimeSpan;
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 // Class that creates the panel that holds the request form
 public class RequestPanel{
 	private final JPanel panel;
-	private String[] hours = { "9:00", "10:00", "11:00", "12:00", "13:00" };
+	
+	
 
 	public RequestPanel() {	
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
-	
+		String[] room = {"Gym", "Cafeteria", "Library", "Computer Lab", "Board Room"};
+		String[] Bookings = {"1","2","3","4","5"};
+		
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		//Creating Labels for fields
@@ -32,22 +42,36 @@ public class RequestPanel{
 		JLabel lName = new JLabel("Last Name: ");
 		JLabel phoneNumber = new JLabel("Phone Number");
 		JLabel email = new JLabel("Email: ");
-		JLabel roomNum = new JLabel("Room Number: ");
-		JLabel sTime = new JLabel("Start Time: ");
-		JLabel eTime = new JLabel("End Time: ");
+		JLabel rooms = new JLabel("Rooms: ");
 		JLabel desc = new JLabel("Description: ");
+		JLabel date = new JLabel("Starting Week: ");
+		JLabel pTime1 = new JLabel("First Preferred Time: ");
+		JLabel pTime2 = new JLabel("Second Preferred Time: ");
+		JLabel pTime3 = new JLabel("Third Preferred Time: ");
+		JLabel pTime4 = new JLabel("Fourth Preferred Time: ");
+		JLabel pTime5 = new JLabel("Fifth Preferred Time: ");
+		JLabel numBook = new JLabel("Number Of Bookings: ");
+		JPanel p1 = new PreferredTimePanel().getPanel();
+		JPanel p2 = new PreferredTimePanel().getPanel();
+		JPanel p3 = new PreferredTimePanel().getPanel();
+		JPanel p4 = new PreferredTimePanel().getPanel();
+		JPanel p5 = new PreferredTimePanel().getPanel();
 		
 		//Creating Fields
 		JTextField fNameField = new JTextField(15);
 		JTextField lNameField = new JTextField(15);
 		JTextField pNumberField = new JTextField(10);
 		JTextField emailField = new JTextField(20);
-		JTextField roomIdField = new JTextField(5);
-		JComboBox<String> sTimeComboBox = new JComboBox<String>(hours);
-		JComboBox<String> eTimeComboBox = new JComboBox<String>(hours);
+		@SuppressWarnings("unchecked")
+		JComboBox room1 = new JComboBox(room);
 		JTextArea descriptionArea = new JTextArea(5,20);
 		descriptionArea.setLineWrap(true);
 		JScrollPane descaBar = new JScrollPane(descriptionArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JComboBox numBooking = new JComboBox(Bookings);
+		UtilDateModel model = new UtilDateModel();
+		JDatePanelImpl datePanel = new JDatePanelImpl(model);
+		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
+		
 		
 		//Left Justifying all components
 		gbc.anchor = GridBagConstraints.LINE_END;
@@ -67,16 +91,32 @@ public class RequestPanel{
 		panel.add(email,gbc);
 		
 		gbc.gridy ++;
-		panel.add(roomNum,gbc);
-		
-		gbc.gridy ++;
-		panel.add(sTime,gbc);
-		
-		gbc.gridy ++;
-		panel.add(eTime,gbc);
+		panel.add(rooms,gbc);
 		
 		gbc.gridy ++;
 		panel.add(desc,gbc);
+		
+		gbc.gridy ++;
+		panel.add(date,gbc);
+		
+		gbc.gridy ++;
+		panel.add(pTime1,gbc);
+		
+		gbc.gridy ++;
+		panel.add(pTime2,gbc);
+		
+		gbc.gridy ++;
+		panel.add(pTime3,gbc);
+		
+		gbc.gridy ++;
+		panel.add(pTime4,gbc);
+		
+		gbc.gridy ++;
+		panel.add(pTime5,gbc);
+		
+		gbc.gridy ++;
+		panel.add(numBook, gbc);
+			
 
 		//Adding fields to panel
 		//Right justifying all components
@@ -95,41 +135,37 @@ public class RequestPanel{
 		panel.add(emailField,gbc);
 		
 		gbc.gridy ++;
-		panel.add(roomIdField,gbc);
-		
-		gbc.gridy ++;
-		panel.add(sTimeComboBox,gbc);
-		
-		gbc.gridy ++;
-		panel.add(eTimeComboBox,gbc);
+		panel.add(room1,gbc);
 		
 		gbc.gridy ++;
 		panel.add(descaBar,gbc);
+		
+		gbc.gridy ++;
+		panel.add(datePicker, gbc);
+		
+		gbc.gridy ++;
+		panel.add(p1,gbc);
+		
+		gbc.gridy ++;
+		panel.add(p2,gbc);
+		
+		gbc.gridy ++;
+		panel.add(p3,gbc);
+		
+		gbc.gridy ++;
+		panel.add(p4,gbc);
+		
+		gbc.gridy ++;
+		panel.add(p5,gbc);
+		
+		gbc.gridy ++;
+		panel.add(numBooking,gbc);
 		
 		//Adding a separate Panel for the submit button
 		JPanel submitButtonPanel = new JPanel();
 		GridBagConstraints submitConstraints = new GridBagConstraints();
 		JButton submitButton = new JButton("Submit");
 		submitButtonPanel.add(submitButton, submitConstraints);
-		
-		class Action implements ActionListener{//Action Listener to create a request object
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				String fname = fNameField.getText();
-				String lname = lNameField.getText();
-				String pNum = pNumberField.getText();
-				long pNumb = Long.parseLong(pNum);
-				String email = emailField.getText();
-				int room = Integer.getInteger(roomIdField.getText());
-				LocalDateTime start = (LocalDateTime) sTimeComboBox.getSelectedItem();
-				LocalDateTime end = (LocalDateTime) eTimeComboBox.getSelectedItem();
-				String desc = descriptionArea.getText();
-				@SuppressWarnings("unused")
-				Request request = new Request(fname, lname, pNumb, email, room, start, end, desc);	
-			}
-		}
-		submitButton.addActionListener(new Action());
 		
 		gbc.gridy ++;
 		gbc.anchor = GridBagConstraints.LINE_END;
