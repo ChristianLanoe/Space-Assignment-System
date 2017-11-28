@@ -2,8 +2,10 @@ package Tests;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import UI.RoomCreationHolderPanel;
 import UI.RoomCreationPanel;
 
 public class RoomCreation_Tester {
@@ -15,7 +17,6 @@ public class RoomCreation_Tester {
 	private int DEFAULT_HEIGHT = 500;
 	public RoomCreation_Tester() {
 		JFrame requestFrame = new JFrame();
-		
 		requestFrame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		requestFrame.setLocationRelativeTo(null);
 		requestFrame.setResizable(true);
@@ -23,7 +24,7 @@ public class RoomCreation_Tester {
 		requestFrame.setTitle("Room Creation Tester");
 		requestFrame.getContentPane().setLayout(new BorderLayout());
 		
-		requestFrame.getContentPane().add(new RoomCreationPanel().getPanel());
+		requestFrame.getContentPane().add(new RoomCreationHolderPanel().getPanel());
 		requestFrame.setVisible(true);
 		
 		requestFrame.pack();
