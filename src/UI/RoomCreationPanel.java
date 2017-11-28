@@ -2,84 +2,186 @@ package UI;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import Room.Amenity;
-import Room.RoomType;
 public class RoomCreationPanel {
-	JPanel panel;
-	GridBagConstraints gbc;
+	private final JPanel panel;
 	
-	public RoomCreationPanel() {
+	public RoomCreationPanel(){
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
+		String[] times = {"skdhfbvlosiu", "bdfhvjbx","cdsfbxdfb0","dsfgbdfb","sdbgfgbe","fsdgbdf","gsdbg"};
+		String[] semester = {"Fall", "Winter","Summer"};
+
+		GridBagConstraints pTimeConstraints = new GridBagConstraints();
 		
-		gbc = new GridBagConstraints();
+		//Create buttons for each day of the week
+		JCheckBox mon = new JCheckBox("Monday");
+		JCheckBox tue = new JCheckBox("Tuesday");
+		JCheckBox wed = new JCheckBox("Wednesday");
+		JCheckBox thu = new JCheckBox("Thursday");
+		JCheckBox fri = new JCheckBox("Friday");
+		JCheckBox sat = new JCheckBox("Saturday");
+		JCheckBox sun = new JCheckBox("Sunday");
 		
-		JLabel roomLabel = new JLabel("Room Number: ");
-		JLabel roomTypeLabel = new JLabel("Room Type: "); 
-		JLabel capacityLabel = new JLabel("Capacity: ");
-		JLabel amenityLabel = new JLabel("Amenities: ");
-		JLabel lengthLabel = new JLabel("Length: ");
-		JLabel widthLabel = new JLabel("Width: ");
+		JLabel semesterlabel = new JLabel("Semester:");
+		JLabel roomlabel = new JLabel("Room:");
+		JLabel widthlabel = new JLabel("Width:");
+		JLabel lengthlabel = new JLabel("Length:");
+		JLabel capacitylabel = new JLabel("Capacity:");
 		
-		JTextField roomTF = new JTextField(5);
-		JComboBox<RoomType> roomTypeCB = new JComboBox<RoomType>(RoomType.values());
-		JTextField capacityTF = new JTextField(10);
-		JComboBox<Amenity> amenityCB = new JComboBox<Amenity>(Amenity.values());
-		JTextField lengthTF = new JTextField(5);
-		JTextField widthTF = new JTextField(5);
+		JLabel stlabel = new JLabel("Start Time:");
+		JLabel etlabel = new JLabel("End Time:");
 		
-		//Adding labels to panel
-		gbc.anchor = GridBagConstraints.LINE_END;
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		panel.add(roomLabel, gbc);
+		JTextField room = new JTextField(15);
+		JTextField width = new JTextField(5);
+		JTextField length = new JTextField(5);
+		JTextField capacity = new JTextField(5);
 		
-		gbc.gridy ++;
-		panel.add(roomTypeLabel,gbc);
 		
-		gbc.gridy ++;
-		panel.add(capacityLabel, gbc);
+		//Combo Boxes for the start and end times
+		JComboBox semesters = new JComboBox(semester);
+		JComboBox start = new JComboBox(times);
+		JComboBox end = new JComboBox(times);
 		
-		gbc.gridy ++;
-		panel.add(amenityLabel, gbc);
+		//Button group so only one day can be selected
+		panel.add(semesters);
+		panel.add(mon);
+		panel.add(tue);
+		panel.add(wed);
+		panel.add(thu);
+		panel.add(fri);
+		panel.add(sat);
+		panel.add(sun);
 		
-		gbc.gridy ++;
-		panel.add(lengthLabel, gbc);
+		mon.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				System.out.print("MONDAY");
+			}
+		});
 		
-		gbc.gridy ++;
-		panel.add(widthLabel, gbc);
+		tue.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				System.out.print("TUESDAY");
+			}
+		});
 		
-		//Adding fields to panel
-		gbc.anchor = GridBagConstraints.LINE_START;
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		panel.add(roomTF,gbc);
+		wed.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				System.out.print("WEDNESDAY");
+			}
+		});
 		
-		gbc.gridy ++;
-		panel.add(roomTypeCB, gbc);
+		thu.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				System.out.print("THURSDAY");
+			}
+		});
 		
-		gbc.gridy ++;
-		panel.add(capacityTF, gbc);
+		fri.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				System.out.print("FRIDAY");
+			}
+		});
 		
-		gbc.gridy ++;
-		panel.add(amenityCB, gbc);
-		gbc.gridx = GridBagConstraints.RELATIVE;
-		panel.add(new JButton("+"),gbc);	//This button will be used to add more comboboxes for amenities to the form
+		sat.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				System.out.print("SATURDAY");
+			}
+		});
 		
-		gbc.gridy ++;
-		panel.add(lengthTF,gbc);
+		sun.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				System.out.print("SUNDAY");
+			}
+		});
 		
-		gbc.gridy ++;
-		panel.add(widthTF, gbc);
+		//Layout of the buttons
+		pTimeConstraints.gridx = 0;
+		pTimeConstraints.gridy = 0;
+		panel.add(semesterlabel,pTimeConstraints);
+		pTimeConstraints.gridx ++;
+		panel.add(semesters, pTimeConstraints);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(roomlabel);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(room);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(widthlabel);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(width);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(lengthlabel);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(length);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(capacitylabel);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(capacity);
+		
+		
+		pTimeConstraints.gridx = 0;
+		pTimeConstraints.gridy ++;
+		panel.add(mon, pTimeConstraints);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(tue, pTimeConstraints);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(wed, pTimeConstraints);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(thu, pTimeConstraints);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(fri, pTimeConstraints);
+
+		pTimeConstraints.gridx ++;
+		panel.add(sat, pTimeConstraints);
+		
+		pTimeConstraints.gridx ++;
+		panel.add(sun, pTimeConstraints);
+		
+		pTimeConstraints.gridx = 0;
+		pTimeConstraints.gridy++;
+		
+		panel.add(stlabel, pTimeConstraints);		
+		
+		pTimeConstraints.gridx ++;
+		panel.add(start, pTimeConstraints);
+		
+		pTimeConstraints.gridx = 0;
+		pTimeConstraints.gridy ++;
+		panel.add(etlabel, pTimeConstraints);	
+		
+		pTimeConstraints.gridx++;
+		panel.add(end, pTimeConstraints);
+		
 	}
-	
 	public JPanel getPanel() {
 		return panel;
 	}
