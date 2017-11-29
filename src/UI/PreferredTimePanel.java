@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.DayOfWeek;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -12,12 +13,18 @@ import javax.swing.JRadioButton;
 
 public class PreferredTimePanel {
 	private final JPanel panel;
+	private String room;
+	private JComboBox start;
+	private JComboBox end;
 	
-	public PreferredTimePanel(){
+	public PreferredTimePanel(String room){
+		this.room = room;
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
-		String[] times = {"skdhfbvlosiu", "bdfhvjbx","cdsfbxdfb0","dsfgbdfb","sdbgfgbe","fsdgbdf","gsdbg"};
-
+		String[] times = {"","","","",""};
+		String[] startTime = null;
+		String[] endTime = null;
+		
 		GridBagConstraints pTimeConstraints = new GridBagConstraints();
 		
 		//Create buttons for each day of the week
@@ -46,7 +53,8 @@ public class PreferredTimePanel {
 		mon.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				System.out.print("MONDAY");
+				System.out.print(DayOfWeek.MONDAY.toString());
+				//TODO ComboBox needs to be updated when Monday selected
 			}
 		});
 		
@@ -123,6 +131,15 @@ public class PreferredTimePanel {
 		panel.add(end, pTimeConstraints);
 		
 	}
+//	public String[] 
+	public void setStart(JComboBox start){
+		this.start = start;
+	}
+	
+	public void setEnd(JComboBox end){
+		this.end = end;
+	}
+	
 	public JPanel getPanel() {
 		return panel;
 	}
