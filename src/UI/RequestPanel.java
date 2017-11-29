@@ -4,7 +4,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
@@ -66,11 +68,14 @@ public class RequestPanel{
 		UtilDateModel model = new UtilDateModel();
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
-		JPanel p1 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
-		JPanel p2 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
-		JPanel p3 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
-		JPanel p4 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
-		JPanel p5 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
+		String lDate = datePicker.getJFormattedTextField().getText();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyy");
+		LocalDate localDate = LocalDate.parse(lDate, formatter);
+		JPanel p1 = new PreferredTimePanel(room1.getSelectedItem().toString(), localDate).getPanel();
+		JPanel p2 = new PreferredTimePanel(room1.getSelectedItem().toString(), localDate).getPanel();
+		JPanel p3 = new PreferredTimePanel(room1.getSelectedItem().toString(), localDate).getPanel();
+		JPanel p4 = new PreferredTimePanel(room1.getSelectedItem().toString(), localDate).getPanel();
+		JPanel p5 = new PreferredTimePanel(room1.getSelectedItem().toString(), localDate).getPanel();
 		
 		
 		

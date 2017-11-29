@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -12,13 +13,17 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import Schedule.RoomSchedule;
+
 public class PreferredTimePanel {
 	private final JPanel panel;
 	private String room;
 	private JComboBox start;
 	private JComboBox end;
+	private LocalDate date;
 	
-	public PreferredTimePanel(String room){
+	public PreferredTimePanel(String room, LocalDate date){
+		this.date = date;
 		this.room = room;
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -62,7 +67,7 @@ public class PreferredTimePanel {
 				mon.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent event) {
-						ATimes
+						
 					}
 				});
 			}
