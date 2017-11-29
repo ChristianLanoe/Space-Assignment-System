@@ -44,6 +44,17 @@ public class Semesters {
 		return null;
 	}
 	
+	public SemesterType getSemesterType(LocalDate date) {
+		if( (date.isAfter(Fall[0]) || date.isEqual(Fall[0])) && (date.isAfter(Fall[1]) || date.isEqual(Fall[1])) ){
+			return SemesterType.FALL;
+		}else if( (date.isAfter(Winter[0]) || date.isEqual(Winter[0])) && (date.isAfter(Winter[1]) || date.isEqual(Winter[1])) ){
+			return SemesterType.WINTER;
+		}else if( (date.isAfter(Summer[0]) || date.isEqual(Summer[0])) && (date.isAfter(Summer[1]) || date.isEqual(Summer[1])) ){
+			return SemesterType.SUMMER;
+		}
+		return null;
+	}
+	
 	public void setFallSemesterDates(LocalDate start, LocalDate end) {
 		Fall[0] = start;
 		Fall[1] = end;
