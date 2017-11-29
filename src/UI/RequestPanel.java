@@ -174,6 +174,24 @@ public class RequestPanel{
 		JButton submitButton = new JButton("Submit");
 		submitButtonPanel.add(submitButton, submitConstraints);
 		
+		submitButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event) {
+					String fname = fNameField.getText();
+					String lname = lNameField.getText();
+					long Pnum = Long.parseLong(pNumberField.getText());
+					String email = emailField.getText();
+					int room = room1.getSelectedIndex();
+					String desc = descriptionArea.getText();
+					int num = numBooking.getSelectedIndex();
+					DayOfWeekTimeSpan[] times = new DayOfWeekTimeSpan[num];
+					
+					DayOfWeekTimeSpan dow = new DayOfWeekTimeSpan(day, timeSpan);
+					Request req = new Request(fname, lname, Pnum, email, room, desc, times);
+				
+			}
+		});
+		
 		gbc.gridy ++;
 		gbc.anchor = GridBagConstraints.LINE_END;
 		panel.add(submitButtonPanel,gbc);
