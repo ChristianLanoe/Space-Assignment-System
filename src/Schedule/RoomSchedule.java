@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
-import Semester.Semester;
+
 import Request.Request;
 import Room.Room;
 
@@ -20,7 +20,8 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 	private ArrayList<DayOfWeekTimeSpan> bookableTimesWinter;
 	private ArrayList<DayOfWeekTimeSpan> bookableTimesSummer;
 	private boolean[] available;		//Boolean array for each hour block in a day
-
+	private Semesters sem;
+	
 	public RoomSchedule(Room room) {
 		this.room = room;
 		this.bookableTimesFall = new ArrayList<DayOfWeekTimeSpan>();
@@ -148,12 +149,23 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 		return times;
 	}
 	
+	public SemesterType getSemesterType(LocalDate date) {
+		if( (date.isAfter(Fall[0]) || date.isEqual(Fall[0])) && (date.isAfter(Fall[1]) || date.isEqual(Fall[1])) ){
+			return SemesterType.FALL;
+		}else if( (date.isAfter(Winter[0]) || date.isEqual(Winter[0])) && (date.isAfter(Winter[1]) || date.isEqual(Winter[1])) ){
+			return SemesterType.WINTER;
+		}else if( (date.isAfter(Summer[0]) || date.isEqual(Summer[0])) && (date.isAfter(Summer[1]) || date.isEqual(Summer[1])) ){
+			return SemesterType.SUMMER;
+		}
+		return null;
+	}
+	
 	// Returns a RoomSchedule for a specific date
 	public RoomSchedule forDate(LocalDate date) {
 		RoomSchedule daySchedule = new RoomSchedule(this.room);
 		ArrayList<DayOfWeekTimeSpan> bookable;
 		//TODO: Check which semester and generate the bookable from that
-		if(date.getSemesterType().toString() == "Fall"){
+		if(getSemesterType(date) == "Fall"){
 			daySchedule.getAvailable(0);
 			for (Iterator<DayOfWeekTimeSpan> i = bookableTimesFall.iterator(); i.hasNext();) {
 				DayOfWeekTimeSpan dow_ts = i.next();
@@ -168,7 +180,7 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 				}
 			}
 		}
-		else if (date.getSemesterType().toString() == "Winter"){
+		else if (getSemesterType(date) == "Winter"){
 			daySchedule.getAvailable(1);
 			for (Iterator<DayOfWeekTimeSpan> i = bookableTimesWinter.iterator(); i.hasNext();) {
 				DayOfWeekTimeSpan dow_ts = i.next();
@@ -183,7 +195,7 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 				}
 			}
 		}
-		else if (date.getSemesterType().toString() == "Summer"){
+		else if (getSemesterType(date) == "Summer"){
 			daySchedule.getAvailable(2);
 			for (Iterator<DayOfWeekTimeSpan> i = bookableTimesSummer.iterator(); i.hasNext();) {
 				DayOfWeekTimeSpan dow_ts = i.next();
