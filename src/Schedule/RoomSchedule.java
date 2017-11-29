@@ -149,15 +149,10 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 		return times;
 	}
 	
+	//Getting the semester that the localDate falls in
 	public SemesterType getSemesterType(LocalDate date) {
-		if( (date.isAfter(Fall[0]) || date.isEqual(Fall[0])) && (date.isAfter(Fall[1]) || date.isEqual(Fall[1])) ){
-			return SemesterType.FALL;
-		}else if( (date.isAfter(Winter[0]) || date.isEqual(Winter[0])) && (date.isAfter(Winter[1]) || date.isEqual(Winter[1])) ){
-			return SemesterType.WINTER;
-		}else if( (date.isAfter(Summer[0]) || date.isEqual(Summer[0])) && (date.isAfter(Summer[1]) || date.isEqual(Summer[1])) ){
-			return SemesterType.SUMMER;
-		}
-		return null;
+		SemesterType semType = sem.getSemesterType(date);
+		return semType;
 	}
 	
 	// Returns a RoomSchedule for a specific date
