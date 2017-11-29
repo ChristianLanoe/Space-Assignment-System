@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -21,7 +22,10 @@ public class PreferredTimePanel {
 		this.room = room;
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
-		String[] times = {"","","","",""};
+		String[] Stimes = null;
+		String[] Etimes = null;
+		
+		ArrayList<String> ATimes;
 		String[] startTime = null;
 		String[] endTime = null;
 		
@@ -37,8 +41,8 @@ public class PreferredTimePanel {
 		JRadioButton sun = new JRadioButton("Sunday");
 		
 		//Combo Boxes for the start and end times
-		JComboBox start = new JComboBox(times);
-		JComboBox end = new JComboBox(times);
+		JComboBox start = new JComboBox(Stimes);
+		JComboBox end = new JComboBox(Etimes);
 		
 		//Button group so only one day can be selected
 		ButtonGroup bG = new ButtonGroup();
@@ -55,6 +59,12 @@ public class PreferredTimePanel {
 			public void actionPerformed(ActionEvent e){
 				System.out.print(DayOfWeek.MONDAY.toString());
 				//TODO ComboBox needs to be updated when Monday selected
+				mon.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent event) {
+						ATimes
+					}
+				});
 			}
 		});
 		
