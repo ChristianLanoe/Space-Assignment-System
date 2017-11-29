@@ -1,6 +1,7 @@
 package Schedule;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -53,7 +54,7 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 //		}
 	}
 	
-	public void addBookableTime(DayOfWeekTimeSpan span, int sem) {
+	public void addBookableTime(DayOfWeekTimeSpan span, int sem) {//TODO change int to semester type
 		if(sem == 0){
 			bookableTimesFall.add(span);
 			Collections.sort(bookableTimesFall);
@@ -131,13 +132,34 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 		this.room = room;
 	}
 
+	public ArrayList<String> populateDay(ArrayList<DayOfWeekTimeSpan> bookableTimes, int day){
+		ArrayList<String> times = null;
+		DayOfWeekTimeSpan dow_ts = bookableTimes.get(day);
+		LocalTime start = dow_ts.getTimeSpan().getStartTime();
+		LocalTime end = dow_ts.getTimeSpan().getEndTime();
+		LocalTime temp = start;
+		
+		while(temp.isBefore(end)){
+			times.add(temp.toString());
+			temp.plusHours(1);
+		}
+		return times;
+		
+	}
+	
 	// Returns a RoomSchedule for a specific date
 	public RoomSchedule forDate(LocalDate date) {
 		RoomSchedule daySchedule = new RoomSchedule(this.room);
 		ArrayList<DayOfWeekTimeSpan> bookable;
 		//TODO: Check which semester and generate the bookable from that
-		if(sem = fall){
-			daySchedule.addBookableTime(bookableTimesFall, 0);
+		if(date falls in fall semester){
+			daySchedule.populateDay(bookableTimesFall, 0);
+		}
+		else if (date in winter semester){
+			daySchedule.populateDay(bookableTimesWinter, 0);
+		}
+		else if (date in summer semester){
+			daySchedule.populateDay(bookableTimesSummer, 0);
 		}
 		// Iterate through each element in bookableTimes
 		for (Iterator<DayOfWeekTimeSpan> i = bookableTimesFall.iterator(); i.hasNext();) {
