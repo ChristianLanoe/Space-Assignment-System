@@ -51,11 +51,6 @@ public class RequestPanel{
 		JLabel pTime4 = new JLabel("Fourth Preferred Time: ");
 		JLabel pTime5 = new JLabel("Fifth Preferred Time: ");
 		JLabel numBook = new JLabel("Number Of Bookings: ");
-		JPanel p1 = new PreferredTimePanel().getPanel();
-		JPanel p2 = new PreferredTimePanel().getPanel();
-		JPanel p3 = new PreferredTimePanel().getPanel();
-		JPanel p4 = new PreferredTimePanel().getPanel();
-		JPanel p5 = new PreferredTimePanel().getPanel();
 		
 		//Creating Fields
 		JTextField fNameField = new JTextField(15);
@@ -71,6 +66,11 @@ public class RequestPanel{
 		UtilDateModel model = new UtilDateModel();
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
+		JPanel p1 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
+		JPanel p2 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
+		JPanel p3 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
+		JPanel p4 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
+		JPanel p5 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
 		
 		
 		//Left Justifying all components
