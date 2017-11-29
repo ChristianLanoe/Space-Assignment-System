@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import Schedule.DayOfWeekTimeSpan;
 import Schedule.RoomSchedule;
 
 public class PreferredTimePanel {
@@ -21,6 +22,7 @@ public class PreferredTimePanel {
 	private JComboBox start;
 	private JComboBox end;
 	private LocalDate date;
+	private DayOfWeek dow;
 	
 	public PreferredTimePanel(String room, LocalDate date){
 		this.date = date;
@@ -59,14 +61,22 @@ public class PreferredTimePanel {
 		bG.add(sat);
 		bG.add(sun);
 		
+		public DayOfWeekTimeSpan getInfo(){
+			
+			
+			
+		}
+		
 		mon.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				dow = DayOfWeek.MONDAY;
 				System.out.print(DayOfWeek.MONDAY.toString());
 				//TODO ComboBox needs to be updated when Monday selected
 				mon.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent event) {
+						
 						
 					}
 				});
@@ -76,6 +86,7 @@ public class PreferredTimePanel {
 		tue.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				dow = DayOfWeek.TUESDAY;
 				System.out.print("TUESDAY");
 			}
 		});
@@ -83,6 +94,7 @@ public class PreferredTimePanel {
 		wed.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				dow = DayOfWeek.WEDNESDAY;
 				System.out.print("WEDNESDAY");
 			}
 		});
@@ -90,6 +102,7 @@ public class PreferredTimePanel {
 		thu.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				dow = DayOfWeek.THURSDAY;
 				System.out.print("THURSDAY");
 			}
 		});
@@ -97,6 +110,7 @@ public class PreferredTimePanel {
 		fri.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				dow = DayOfWeek.FRIDAY;
 				System.out.print("FRIDAY");
 			}
 		});
@@ -104,6 +118,7 @@ public class PreferredTimePanel {
 		sat.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				dow = DayOfWeek.SATURDAY;
 				System.out.print("SATURDAY");
 			}
 		});
@@ -111,6 +126,7 @@ public class PreferredTimePanel {
 		sun.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				dow = DayOfWeek.SUNDAY;
 				System.out.print("SUNDAY");
 			}
 		});
