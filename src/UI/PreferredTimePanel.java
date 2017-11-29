@@ -24,13 +24,13 @@ public class PreferredTimePanel {
 	private LocalDate date;
 	private DayOfWeek dow;
 	
-	public PreferredTimePanel(String room, LocalDate date){
+	public PreferredTimePanel(String room){
 		this.date = date;
 		this.room = room;
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
-		String[] Stimes = null;
-		String[] Etimes = null;
+		String[] Stimes = {""};
+		String[] Etimes = {""};
 		
 		ArrayList<String> ATimes;
 		String[] startTime = null;
@@ -61,11 +61,6 @@ public class PreferredTimePanel {
 		bG.add(sat);
 		bG.add(sun);
 		
-		public DayOfWeekTimeSpan getInfo(){
-			
-			
-			
-		}
 		
 		mon.addActionListener(new ActionListener(){
 			@Override

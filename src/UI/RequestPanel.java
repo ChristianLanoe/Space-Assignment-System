@@ -68,14 +68,14 @@ public class RequestPanel{
 		UtilDateModel model = new UtilDateModel();
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
-		String lDate = datePicker.getJFormattedTextField().getText();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyy");
-		LocalDate localDate = LocalDate.parse(lDate, formatter);
-		JPanel p1 = new PreferredTimePanel(room1.getSelectedItem().toString(), localDate).getPanel();
-		JPanel p2 = new PreferredTimePanel(room1.getSelectedItem().toString(), localDate).getPanel();
-		JPanel p3 = new PreferredTimePanel(room1.getSelectedItem().toString(), localDate).getPanel();
-		JPanel p4 = new PreferredTimePanel(room1.getSelectedItem().toString(), localDate).getPanel();
-		JPanel p5 = new PreferredTimePanel(room1.getSelectedItem().toString(), localDate).getPanel();
+//		String lDate = datePicker.getJFormattedTextField().getText();
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyy");
+//		LocalDate localDate = LocalDate.parse(lDate, formatter);
+		JPanel p1 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
+		JPanel p2 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
+		JPanel p3 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
+		JPanel p4 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
+		JPanel p5 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
 		
 		
 		
@@ -186,8 +186,8 @@ public class RequestPanel{
 					int num = numBooking.getSelectedIndex();
 					DayOfWeekTimeSpan[] times = new DayOfWeekTimeSpan[num];
 					
-					DayOfWeekTimeSpan dow = new DayOfWeekTimeSpan(day, timeSpan);
-					Request req = new Request(fname, lname, Pnum, email, room, desc, times);
+				//	DayOfWeekTimeSpan dow = new DayOfWeekTimeSpan(day, timeSpan);
+				//	Request req = new Request(fname, lname, Pnum, email, room, desc, times);
 				
 			}
 		});
