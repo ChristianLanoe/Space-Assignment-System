@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Iterator;
 
 
-import Request.Request;
 import Room.Room;
 
 //Class that refers to a room and the times it is able to be booked and the times it is booked
@@ -56,16 +55,16 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 //		}
 	}
 	
-	public void addBookableTime(DayOfWeekTimeSpan span, int sem) {//TODO change int to semester type
-		if(sem == 0){
+	public void addBookableTime(DayOfWeekTimeSpan span, SemesterType type) {//TODO change int to semester type
+		if(type == SemesterType.FALL){
 			bookableTimesFall.add(span);
 			Collections.sort(bookableTimesFall);
 		}
-		else if(sem == 1){
+		else if(type == SemesterType.WINTER){
 			bookableTimesWinter.add(span);
 			Collections.sort(bookableTimesWinter);
 		}
-		else if(sem == 2){
+		else if(type == SemesterType.SUMMER){
 			bookableTimesSummer.add(span);
 			Collections.sort(bookableTimesSummer);
 		}
@@ -80,30 +79,30 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 		this.available = available;
 	}
 
-	public boolean[] getAvailable(int sem) {
-		if(sem == 0){
+	public boolean[] getAvailable(SemesterType type) {
+		if(type == SemesterType.FALL){
 			populateAvailable(bookableTimesFall);
 			return available;
 		}
-		else if(sem == 1){
+		else if(type == SemesterType.WINTER){
 			populateAvailable(bookableTimesWinter);
 			return available;
 		}
-		else if(sem == 2){
+		else if(type == SemesterType.SUMMER){
 			populateAvailable(bookableTimesSummer);
 			return available;
 		}
 		else return null;
 	}
 
-	public ArrayList<DayOfWeekTimeSpan> getBookableTimes(int sem) {
-		if(sem == 0){
+	public ArrayList<DayOfWeekTimeSpan> getBookableTimes(SemesterType type) {
+		if(type == SemesterType.FALL){
 			return bookableTimesFall;
 		}
-		else if(sem == 1){
+		else if(type == SemesterType.WINTER){
 			return bookableTimesWinter;
 		}
-		else if(sem == 2){
+		else if(type == SemesterType.SUMMER){
 			return bookableTimesSummer;
 		}
 		else return null;
@@ -151,6 +150,7 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 	
 	//Getting the semester that the localDate falls in
 	public SemesterType getSemesterType(LocalDate date) {
+		//calling the getSemesterType function for class with predefined semester start and end times
 		SemesterType semType = sem.getSemesterType(date);
 		return semType;
 	}
@@ -160,13 +160,13 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 		RoomSchedule daySchedule = new RoomSchedule(this.room);
 		ArrayList<DayOfWeekTimeSpan> bookable;
 		//TODO: Check which semester and generate the bookable from that
-		if(getSemesterType(date) == "Fall"){
-			daySchedule.getAvailable(0);
+		if(getSemesterType(date) == SemesterType.FALL){
+			daySchedule.getAvailable(SemesterType.FALL);
 			for (Iterator<DayOfWeekTimeSpan> i = bookableTimesFall.iterator(); i.hasNext();) {
 				DayOfWeekTimeSpan dow_ts = i.next();
 				// Only add DayOfWeekTimeSpans that have the same day of week as the date
 				if (dow_ts.getDayOfWeek() == date.getDayOfWeek()) {
-					daySchedule.addBookableTime(dow_ts, 0);
+					daySchedule.addBookableTime(dow_ts, SemesterType.FALL);
 				}
 				// Since all DayOfWeekTimeSpans are sorted, once you find a DayOfWeek that is
 				// greater than the date, you can stop iterating
@@ -175,13 +175,13 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 				}
 			}
 		}
-		else if (getSemesterType(date) == "Winter"){
-			daySchedule.getAvailable(1);
+		else if (getSemesterType(date) == SemesterType.WINTER){
+			daySchedule.getAvailable(SemesterType.WINTER);
 			for (Iterator<DayOfWeekTimeSpan> i = bookableTimesWinter.iterator(); i.hasNext();) {
 				DayOfWeekTimeSpan dow_ts = i.next();
 				// Only add DayOfWeekTimeSpans that have the same day of week as the date
 				if (dow_ts.getDayOfWeek() == date.getDayOfWeek()) {
-					daySchedule.addBookableTime(dow_ts, 0);
+					daySchedule.addBookableTime(dow_ts, SemesterType.WINTER);
 				}
 				// Since all DayOfWeekTimeSpans are sorted, once you find a DayOfWeek that is
 				// greater than the date, you can stop iterating
@@ -190,13 +190,13 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 				}
 			}
 		}
-		else if (getSemesterType(date) == "Summer"){
-			daySchedule.getAvailable(2);
+		else if (getSemesterType(date) == SemesterType.SUMMER){
+			daySchedule.getAvailable(SemesterType.SUMMER);
 			for (Iterator<DayOfWeekTimeSpan> i = bookableTimesSummer.iterator(); i.hasNext();) {
 				DayOfWeekTimeSpan dow_ts = i.next();
 				// Only add DayOfWeekTimeSpans that have the same day of week as the date
 				if (dow_ts.getDayOfWeek() == date.getDayOfWeek()) {
-					daySchedule.addBookableTime(dow_ts, 0);
+					daySchedule.addBookableTime(dow_ts, SemesterType.SUMMER);
 				}
 				// Since all DayOfWeekTimeSpans are sorted, once you find a DayOfWeek that is
 				// greater than the date, you can stop iterating
