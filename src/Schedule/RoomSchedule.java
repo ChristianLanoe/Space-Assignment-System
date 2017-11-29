@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
+import Semester.Semester;
 import Request.Request;
 import Room.Room;
 
@@ -61,11 +62,11 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 		}
 		else if(sem == 1){
 			bookableTimesWinter.add(span);
-			Collections.sort(bookableTimesFall);
+			Collections.sort(bookableTimesWinter);
 		}
 		else if(sem == 2){
 			bookableTimesSummer.add(span);
-			Collections.sort(bookableTimesFall);
+			Collections.sort(bookableTimesSummer);
 		}
 	}
 
@@ -132,6 +133,7 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 		this.room = room;
 	}
 
+	//Populate the ArrayList for the ComboBoxes of preferredTimePanel
 	public ArrayList<String> populateDay(ArrayList<DayOfWeekTimeSpan> bookableTimes, int day){
 		ArrayList<String> times = null;
 		DayOfWeekTimeSpan dow_ts = bookableTimes.get(day);
@@ -144,7 +146,6 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 			temp.plusHours(1);
 		}
 		return times;
-		
 	}
 	
 	// Returns a RoomSchedule for a specific date
@@ -152,42 +153,52 @@ public class RoomSchedule implements Comparable<RoomSchedule> {
 		RoomSchedule daySchedule = new RoomSchedule(this.room);
 		ArrayList<DayOfWeekTimeSpan> bookable;
 		//TODO: Check which semester and generate the bookable from that
-		if(date falls in fall semester){
-			daySchedule.populateDay(bookableTimesFall, 0);
+		if(date.getSemesterType().toString() == "Fall"){
+			daySchedule.getAvailable(0);
+			for (Iterator<DayOfWeekTimeSpan> i = bookableTimesFall.iterator(); i.hasNext();) {
+				DayOfWeekTimeSpan dow_ts = i.next();
+				// Only add DayOfWeekTimeSpans that have the same day of week as the date
+				if (dow_ts.getDayOfWeek() == date.getDayOfWeek()) {
+					daySchedule.addBookableTime(dow_ts, 0);
+				}
+				// Since all DayOfWeekTimeSpans are sorted, once you find a DayOfWeek that is
+				// greater than the date, you can stop iterating
+				if (dow_ts.getDayOfWeek().getValue() > date.getDayOfWeek().getValue()) {
+					break;
+				}
+			}
 		}
-		else if (date in winter semester){
-			daySchedule.populateDay(bookableTimesWinter, 0);
+		else if (date.getSemesterType().toString() == "Winter"){
+			daySchedule.getAvailable(1);
+			for (Iterator<DayOfWeekTimeSpan> i = bookableTimesWinter.iterator(); i.hasNext();) {
+				DayOfWeekTimeSpan dow_ts = i.next();
+				// Only add DayOfWeekTimeSpans that have the same day of week as the date
+				if (dow_ts.getDayOfWeek() == date.getDayOfWeek()) {
+					daySchedule.addBookableTime(dow_ts, 0);
+				}
+				// Since all DayOfWeekTimeSpans are sorted, once you find a DayOfWeek that is
+				// greater than the date, you can stop iterating
+				if (dow_ts.getDayOfWeek().getValue() > date.getDayOfWeek().getValue()) {
+					break;
+				}
+			}
 		}
-		else if (date in summer semester){
-			daySchedule.populateDay(bookableTimesSummer, 0);
+		else if (date.getSemesterType().toString() == "Summer"){
+			daySchedule.getAvailable(2);
+			for (Iterator<DayOfWeekTimeSpan> i = bookableTimesSummer.iterator(); i.hasNext();) {
+				DayOfWeekTimeSpan dow_ts = i.next();
+				// Only add DayOfWeekTimeSpans that have the same day of week as the date
+				if (dow_ts.getDayOfWeek() == date.getDayOfWeek()) {
+					daySchedule.addBookableTime(dow_ts, 0);
+				}
+				// Since all DayOfWeekTimeSpans are sorted, once you find a DayOfWeek that is
+				// greater than the date, you can stop iterating
+				if (dow_ts.getDayOfWeek().getValue() > date.getDayOfWeek().getValue()) {
+					break;
+				}
+			}
 		}
 		// Iterate through each element in bookableTimes
-		for (Iterator<DayOfWeekTimeSpan> i = bookableTimesFall.iterator(); i.hasNext();) {
-			DayOfWeekTimeSpan dow_ts = i.next();
-			// Only add DayOfWeekTimeSpans that have the same day of week as the date
-			if (dow_ts.getDayOfWeek() == date.getDayOfWeek()) {
-				daySchedule.addBookableTime(dow_ts, 0);
-			}
-			// Since all DayOfWeekTimeSpans are sorted, once you find a DayOfWeek that is
-			// greater than the date, you can stop iterating
-			if (dow_ts.getDayOfWeek().getValue() > date.getDayOfWeek().getValue()) {
-				break;
-			}
-		}
-		
-//		for (Iterator<Request> i = bookings.iterator(); i.hasNext();) {
-//			Request request = i.next();
-//			// Only add Requests that start on the same date as the date
-//			// StartTime uses LocalDateTime, so we convert it to a LocalDate
-//			if (request.getStartTime().toLocalDate().compareTo(date) == 0) {
-//				daySchedule.addBooking(request);
-//			}
-//			// Requests are sorted by StartTime, same logic as above for DayOfWeekTimeSpans
-//			if (request.getStartTime().toLocalDate().isAfter(date)) {
-//				break;
-//			}
-//		}
-		daySchedule.getAvailable(int sem);
 		return daySchedule;
 	}
 
