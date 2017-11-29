@@ -10,9 +10,12 @@ import java.time.LocalTime;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JViewport;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import Request.Request;
 import Room.Room;
@@ -24,23 +27,31 @@ import Schedule.TimeSpan;
 
 // Class for creating panel that displays the calendar for all rooms
 public class CalendarPanel {
-	JPanel panel;
-	Calendar cal;
-	JTable table;
-	
+	private JPanel panel;
+	private Calendar cal;
+	private JTable table;
+	private int HoursInDay = 24;
 	public CalendarPanel() {
 		panel = new JPanel();
 
-		initializeRoomSchedules();
+		initializeRoomSchedules();	
+		Boolean[][] data = cal.getDateArray(cal.forDate(LocalDate.now()));
 		
 		//An array of all the rooms available for a certain day
 		//TODO: get forDate argument from JDatePicker
 		Integer[] rooms = cal.getRoomArray(cal.forDate(LocalDate.now()));
+		Integer[][] roomHeaderValues = new Integer[rooms.length][1];
+		for(int i = 0; i<rooms.length; i++) {
+			roomHeaderValues[i][0] = rooms[i];
+		}
+		
+		String[] rowHeader = {"Rooms"};
+		
 		
 		//An array of all column names (i.e. hour blocks)
 		//TODO: column names in the form "9-10"
-		Integer[] columnNames = new Integer[24];
-		for(int i = 0; i<24;i++) {
+		Integer[] columnNames = new Integer[HoursInDay];
+		for(int i = 0; i<HoursInDay;i++) {
 			columnNames[i] = i;
 		}
 		
@@ -48,12 +59,24 @@ public class CalendarPanel {
 		for(int i = 0; i<rooms.length;i++) {
 			rowHeaderTableModel.addRow(new Object[] {rooms[i]});			
 		}
-		JTable rowHeader = new JTable();
-		rowHeader.setModel(rowHeaderTableModel);
 		
-		Boolean[][] data = cal.getDateArray(cal.forDate(LocalDate.now()));
 		
-		table = new JTable(data, columnNames) {
+		TableColumnModel rowHeaderModel = new DefaultTableColumnModel() {
+			boolean first= true;
+			
+			public void addColumn(TableColumn tc) {
+				if(first) {
+					tc.setMaxWidth(tc.getPreferredWidth());
+					super.addColumn(tc);
+					first = false;
+				}
+			}
+		};
+
+		JTable rowHeaderColumn = new JTable(roomHeaderValues,rowHeader);
+		rowHeaderColumn.setRowHeight(30);
+		
+		table = new JTable(data,columnNames) {
 			@Override
 			public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int columnIndex) {
 				Component component = super.prepareRenderer(renderer,rowIndex,columnIndex);
@@ -69,12 +92,18 @@ public class CalendarPanel {
 			}
 		};
 		
+		JViewport viewport = new JViewport();
+		viewport.setView(rowHeaderColumn);
+		viewport.setPreferredSize(rowHeaderColumn.getPreferredSize());
+		
+		
 		setTablePreferences();
 		
 //		Making the table scrollable
 		JScrollPane tableScroll = new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//		tableScroll.setRowHeaderView(rowHeader);
+		tableScroll.setRowHeaderView(viewport);
 		
+//		tableScroll.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER, rowHeaderColumn.getTableHeader());
 		panel.add(tableScroll);
 	}
 	
