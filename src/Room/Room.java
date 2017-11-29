@@ -5,18 +5,27 @@ package Room;
 */
 public class Room implements Comparable<Room>{
 	private int roomNumber;
+	private String roomName;
 	private int capacity;
 	private int length;
 	private int width;
 	
 	//Creates Room object
-	public Room(int roomNumber, int capacity, int length, int width) {
+	public Room(int roomNumber, String roomName, int capacity, int length, int width) {
 		this.roomNumber = roomNumber;
+		this.roomName = roomName;
 		this.capacity = capacity;
 		this.length = length;
 		this.width = width;
 	}
 
+	public String getRoomName() {
+		return this.roomName;
+	}
+	
+	public void setRoomName(String name) {
+		this.roomName = name;
+	}
 	public int getLength() {
 		return length;
 	}
@@ -55,6 +64,8 @@ public class Room implements Comparable<Room>{
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Room Number: " + roomNumber);
+		sb.append("\n");
+		sb.append("Room Name: " + roomName);
 		sb.append("\n");
 		sb.append("Capacity: " + capacity);
 		sb.append("\n");
