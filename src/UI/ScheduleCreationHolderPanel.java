@@ -5,6 +5,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -15,14 +19,22 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import Schedule.DayOfWeekTimeSpan;
+import Schedule.Full_Calendar;
+import Schedule.SemesterType;
+import Schedule.Semester_RoomSchedule;
 import UI.ScheduleCreationPanel;
 import Tests.ScheduleCreation_Tester;
 
 public class ScheduleCreationHolderPanel {
 	private final JPanel panel;
 	private final JPanel holder;
+	private ArrayList<ScheduleCreationPanel> SchedCreationPanels = new ArrayList<ScheduleCreationPanel>();
+	private Full_Calendar fullCalendar;
+	
 	public ScheduleCreationHolderPanel(){
-		
+		initializeCalendar();
 		holder = new JPanel();
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -30,7 +42,6 @@ public class ScheduleCreationHolderPanel {
 		JLabel semesterlabel = new JLabel("Semester:");
 		JLabel roomlabel = new JLabel("Room:");
 		
-		String[] semester = {"Fall", "Winter","Summer"};
 		String[] rooms = {"Board Room","Cafeteria","Computer Lab","Gym","Library"};
 		
 		JComboBox room = new JComboBox(rooms);
@@ -46,7 +57,7 @@ public class ScheduleCreationHolderPanel {
 		roomCreator.gridx = 0;
 		roomCreator.gridy = 0;
 		
-		JComboBox semesters = new JComboBox(semester);
+		JComboBox semesters = new JComboBox(SemesterType.values());
 		panel.add(semesterlabel,roomCreator);
 		roomCreator.gridx++;
 		panel.add(semesters,roomCreator);
@@ -68,7 +79,11 @@ public class ScheduleCreationHolderPanel {
 		
 		roomCreator.gridx=2;
 		roomCreator.gridy=0;
-		panel.add(new ScheduleCreationPanel().getPanel(),roomCreator);
+		
+		ScheduleCreationPanel first = new ScheduleCreationPanel();
+		SchedCreationPanels.add(first);
+		
+		panel.add(first.getPanel(),roomCreator);
 		JButton invis = new JButton("      ");
 		roomCreator.gridy++;
 		invis.setOpaque(false);
@@ -81,30 +96,52 @@ public class ScheduleCreationHolderPanel {
 			public void actionPerformed(ActionEvent e){
 				roomCreator.gridx=2;
 				roomCreator.gridy++;
-				panel.add(new ScheduleCreationPanel().getPanel(),roomCreator);
+				ScheduleCreationPanel next = new ScheduleCreationPanel();
+				panel.add(next.getPanel(),roomCreator);
+				SchedCreationPanels.add(next);
 				panel.revalidate();
 				panel.validate();
-				//roomCreator.gridy++;
-				//roomCreator.gridy++;
 				JButton invis = new JButton("      ");
 				roomCreator.gridy++;
 				invis.setOpaque(false);
 				invis.setContentAreaFilled(false);
 				invis.setBorderPainted(false);
 				panel.add(invis,roomCreator);
-				
-				
 			}
 		});
 		
 		submit.addActionListener(new ActionListener(){
-			
 			public void actionPerformed(ActionEvent e){
-				
-				
+				Semester_RoomSchedule schedule = fullCalendar.forSemester((String) room.getSelectedItem(), (SemesterType) semesters.getSelectedItem());
+				for(ScheduleCreationPanel panel: SchedCreationPanels) {
+					ArrayList<DayOfWeekTimeSpan> spans = panel.getInfo();
+					for(DayOfWeekTimeSpan dowts : spans) {
+						schedule.addRoomSchedule(dowts);
+					}
+				}
+				fullCalendar.serialize();
 			}
 		});
 	}
+	
+	//Deserializing Calendar
+		public void initializeCalendar() {
+			try {
+				FileInputStream fis = new FileInputStream("docs/fullSchedule.ser");
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				fullCalendar = (Full_Calendar) ois.readObject();
+				ois.close();
+				fis.close();
+			}catch(IOException i) {
+				i.printStackTrace();
+				return;
+			}catch(ClassNotFoundException e) {
+				System.out.println("Full_Calendar not found!");
+				e.printStackTrace();
+				return;
+			
+			}
+		}
 	public JPanel getPanel() {
 		return holder;
 	}
