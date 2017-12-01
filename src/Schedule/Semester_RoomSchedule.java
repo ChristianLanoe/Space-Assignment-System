@@ -49,6 +49,11 @@ public class Semester_RoomSchedule implements Serializable, Comparable<Semester_
 		return this.semesterType;
 	}
 	
+	//each element in this Boolean array represents a 1 hour block starting at the hour of the index
+	//Iterate through all the DayOfWeekTimeSpans
+	//For each span check if the DayOfWeek is equal to 'day'
+	//If equal, get the start and end time of the span
+	//Set all array indexes from start time to end time true
 	public Boolean[] availableTimes(DayOfWeek day) {
 		Boolean[] result = new Boolean[hoursInDay];
 		Arrays.fill(result,Boolean.FALSE);
@@ -81,6 +86,7 @@ public class Semester_RoomSchedule implements Serializable, Comparable<Semester_
 		return sb.toString();
 	}
 
+	//Sort Semester_RoomSchedules by roomName then SemesterType
 	@Override
 	public int compareTo(Semester_RoomSchedule rs) {
 		if(!this.room.equalsIgnoreCase(rs.getRoom())) {
