@@ -47,12 +47,12 @@ public class RequestPanel{
 		JLabel rooms = new JLabel("Rooms: ");
 		JLabel desc = new JLabel("Description: ");
 		JLabel date = new JLabel("Starting Week: ");
-		JLabel pTime1 = new JLabel("First Preferred Time: ");
-		JLabel pTime2 = new JLabel("Second Preferred Time: ");
-		JLabel pTime3 = new JLabel("Third Preferred Time: ");
-		JLabel pTime4 = new JLabel("Fourth Preferred Time: ");
-		JLabel pTime5 = new JLabel("Fifth Preferred Time: ");
-		JLabel numBook = new JLabel("Number Of Bookings: ");
+		JLabel pTime1 = new JLabel("1) ");
+		JLabel pTime2 = new JLabel("2) ");
+		JLabel pTime3 = new JLabel("3) ");
+		JLabel pTime4 = new JLabel("4) ");
+		JLabel pTime5 = new JLabel("5) ");
+		JLabel numBook = new JLabel("# Of Slots: ");
 		
 		//Creating Fields
 		JTextField fNameField = new JTextField(15);
@@ -174,23 +174,23 @@ public class RequestPanel{
 		JButton submitButton = new JButton("Submit");
 		submitButtonPanel.add(submitButton, submitConstraints);
 		
-		submitButton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent event) {
-					String fname = fNameField.getText();
-					String lname = lNameField.getText();
-					long Pnum = Long.parseLong(pNumberField.getText());
-					String email = emailField.getText();
-					int room = room1.getSelectedIndex();
-					String desc = descriptionArea.getText();
-					int num = numBooking.getSelectedIndex();
-					DayOfWeekTimeSpan[] times = new DayOfWeekTimeSpan[num];
-					
-				//	DayOfWeekTimeSpan dow = new DayOfWeekTimeSpan(day, timeSpan);
-				//	Request req = new Request(fname, lname, Pnum, email, room, desc, times);
-				
-			}
-		});
+//		submitButton.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent event) {
+//					String fname = fNameField.getText();
+//					String lname = lNameField.getText();
+//					long Pnum = Long.parseLong(pNumberField.getText());
+//					String email = emailField.getText();
+//					int room = room1.getSelectedIndex();
+//					String desc = descriptionArea.getText();
+//					int num = numBooking.getSelectedIndex();
+//					DayOfWeekTimeSpan[] times = new DayOfWeekTimeSpan[num];
+//					
+//					DayOfWeekTimeSpan dow = new DayOfWeekTimeSpan(day, timeSpan);
+//					Request req = new Request(fname, lname, Pnum, email, room, desc, times);
+//				
+//			}
+//		});
 		
 		gbc.gridy ++;
 		gbc.anchor = GridBagConstraints.LINE_END;
