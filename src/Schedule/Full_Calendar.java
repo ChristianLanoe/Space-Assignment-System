@@ -12,7 +12,7 @@ import java.util.Collections;
 public class Full_Calendar implements Serializable {
 	private int hoursInDay = 24;
 	private int daysInWeek = 7;
-	ArrayList<Full_RoomSchedule> schedules;
+	ArrayList<Full_RoomSchedule> schedules = new ArrayList<>();
 
 	public Full_Calendar() {
 		schedules = new ArrayList<Full_RoomSchedule>();
@@ -34,7 +34,7 @@ public class Full_Calendar implements Serializable {
 
 	//Gets the Semester_RoomSchedule 
 	public Semester_RoomSchedule forSemester(String room, SemesterType sType) {
-		Semester_RoomSchedule result = null;
+		Semester_RoomSchedule result = new Semester_RoomSchedule(room, sType);
 		
 		for (Full_RoomSchedule fullRS : schedules) {
 			if (fullRS.getRoom().equals(room)) {
@@ -67,6 +67,9 @@ public class Full_Calendar implements Serializable {
 			FileOutputStream fos = new FileOutputStream("docs/fullSchedule.ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(this);
+//			fos = new FileOutputStream("docs/Available.ser");
+//			oos = new ObjectOutputStream(fos);
+//			oos.writeObject(this.getAvailableTimes(room, sType));
 			oos.close();
 			fos.close();
 		} catch(IOException i) {
