@@ -1,5 +1,6 @@
 package Schedule;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 
 /*
@@ -7,7 +8,7 @@ import java.time.DayOfWeek;
 	Used for BookableTimes class
 */
 
-public class DayOfWeekTimeSpan implements Comparable<DayOfWeekTimeSpan>{
+public class DayOfWeekTimeSpan implements Comparable<DayOfWeekTimeSpan>, Serializable{
 	private DayOfWeek dayOfWeek;
 	private TimeSpan timeSpan;
 	
