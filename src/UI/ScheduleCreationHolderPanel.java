@@ -112,14 +112,14 @@ public class ScheduleCreationHolderPanel {
 		
 		submit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				Semester_RoomSchedule schedule = fullCalendar.forSemester((String) room.getSelectedItem(), (SemesterType) semesters.getSelectedItem());
-				for(ScheduleCreationPanel panel: SchedCreationPanels) {
-					ArrayList<DayOfWeekTimeSpan> spans = panel.getInfo();
-					for(DayOfWeekTimeSpan dowts : spans) {
-						schedule.addRoomSchedule(dowts);
+				Semester_RoomSchedule schedule = fullCalendar.forSemester((String) room.getSelectedItem(), (SemesterType) semesters.getSelectedItem()); // Get Semester_RoomSchdeule for the specified room and semester
+				for(ScheduleCreationPanel panel: SchedCreationPanels) {		//Iterate through all the SchedulCreationPanels
+					ArrayList<DayOfWeekTimeSpan> spans = panel.getInfo();		//getInfo returns DayOfWeekTimeSpans for 'schedule'
+					for(DayOfWeekTimeSpan dowts : spans) {					//Iterate through all the spans from getInto()
+						schedule.addRoomSchedule(dowts);						//Add each DayOfWeekTimeSpan to the Semester_Schedule
 					}
 				}
-				fullCalendar.serialize();
+				fullCalendar.serialize();									//write fullCalendar back to it's file
 			}
 		});
 	}
