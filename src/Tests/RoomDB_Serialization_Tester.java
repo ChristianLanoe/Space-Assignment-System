@@ -16,7 +16,6 @@ public class RoomDB_Serialization_Tester {
 	private static Room d;
 	private static Room e;
 	private static RoomDB rooms;
-	
 
 	public static void makeRooms() {
 		a = new Room(1, "Gym", 400, 94, 60);
@@ -25,7 +24,7 @@ public class RoomDB_Serialization_Tester {
 		d = new Room(4, "Computer Lab", 40, 60, 60);
 		e = new Room(5, "Board Room", 25, 50, 50);
 	}
-	
+
 	public static void addToDB() {
 		rooms = new RoomDB();
 		rooms.addRoom(a);
@@ -34,15 +33,14 @@ public class RoomDB_Serialization_Tester {
 		rooms.addRoom(d);
 		rooms.addRoom(e);
 	}
-	
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		// Creating Rooms
 		makeRooms();
-		
+
 		// Adding rooms to Room Database
 		addToDB();
-		
+
 		System.out.println("Serializing RoomDB....");
 		System.out.println("=============================================");
 		try {
@@ -55,26 +53,26 @@ public class RoomDB_Serialization_Tester {
 			// TODO Auto-generated catch block
 			i.printStackTrace();
 		}
-		
+
 		System.out.println("Deerializing RoomDB....");
 		System.out.println("=============================================");
-		RoomDB output  = null;
+		RoomDB output = null;
 		try {
 			FileInputStream fileIn = new FileInputStream("docs/rooms.ser");
 			ObjectInputStream inStream = new ObjectInputStream(fileIn);
 			output = (RoomDB) inStream.readObject();
 			inStream.close();
 			fileIn.close();
-		} catch(IOException i) {
+		} catch (IOException i) {
 			i.printStackTrace();
 			return;
-		} catch(ClassNotFoundException i) {
+		} catch (ClassNotFoundException i) {
 			i.printStackTrace();
 			return;
 		}
-		
+
 		System.out.println(output.toString());
-		
+
 	}
-	
+
 }
