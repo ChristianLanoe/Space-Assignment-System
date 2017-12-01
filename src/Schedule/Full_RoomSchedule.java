@@ -42,12 +42,14 @@ public class Full_RoomSchedule implements Serializable, Comparable<Full_RoomSche
 		return semester_schedules.get(type.getValue());
 	}
 	
+	//creates a boolean array for available hour blocks for a specific day of week and semester
 	public Boolean[] getAvailable(DayOfWeek day,SemesterType type) {
 		Boolean[] result = new Boolean[hoursInDay];
 		result = forSemester(type).availableTimes(day);
 		
 		return result;
 	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
