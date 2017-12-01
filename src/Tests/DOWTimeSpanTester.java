@@ -7,14 +7,14 @@ import Schedule.DayOfWeekTimeSpan;
 import Schedule.TimeSpan;
 
 public class DOWTimeSpanTester {
-	private static int MINUTES; 
+	private static int MINUTES;
+
 	public static void main(String[] args) {
-		LocalTime startTime = LocalTime.of(9,MINUTES);
+		LocalTime startTime = LocalTime.of(9, MINUTES);
 		LocalTime endTime = LocalTime.of(15, MINUTES);
-		
-		TimeSpan ts = new TimeSpan(startTime,endTime);
-		
-		
+
+		TimeSpan ts = new TimeSpan(startTime, endTime);
+
 		DayOfWeekTimeSpan dowts = new DayOfWeekTimeSpan(DayOfWeek.MONDAY, ts);
 		System.out.println(dowts.toString());
 	}

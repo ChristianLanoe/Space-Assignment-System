@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
@@ -71,13 +72,27 @@ public class RequestPanel{
 //		String lDate = datePicker.getJFormattedTextField().getText();
 //		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyy");
 //		LocalDate localDate = LocalDate.parse(lDate, formatter);
-		JPanel p1 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
-		JPanel p2 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
-		JPanel p3 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
-		JPanel p4 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
-		JPanel p5 = new PreferredTimePanel(room1.getSelectedItem().toString()).getPanel();
 		
+		String roomName = (String) room1.getSelectedItem();
 		
+		PreferredTimePanel a = new PreferredTimePanel(roomName);
+		PreferredTimePanel b = new PreferredTimePanel(roomName);
+		PreferredTimePanel c = new PreferredTimePanel(roomName);
+		PreferredTimePanel d = new PreferredTimePanel(roomName);
+		PreferredTimePanel e = new PreferredTimePanel(roomName);
+		
+		JPanel p1 = a.getPanel();
+		JPanel p2 = b.getPanel();
+		JPanel p3 = c.getPanel();
+		JPanel p4 = d.getPanel();
+		JPanel p5 = e.getPanel();
+		
+		ArrayList<PreferredTimePanel> prefTimePanels = new ArrayList<PreferredTimePanel>();
+		prefTimePanels.add(a);
+		prefTimePanels.add(b);
+		prefTimePanels.add(c);
+		prefTimePanels.add(d);
+		prefTimePanels.add(e);
 		
 		
 		//Left Justifying all components
@@ -174,9 +189,9 @@ public class RequestPanel{
 		JButton submitButton = new JButton("Submit");
 		submitButtonPanel.add(submitButton, submitConstraints);
 		
-//		submitButton.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent event) {
+		submitButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event) {
 //					String fname = fNameField.getText();
 //					String lname = lNameField.getText();
 //					long Pnum = Long.parseLong(pNumberField.getText());
@@ -188,9 +203,10 @@ public class RequestPanel{
 //					
 //					DayOfWeekTimeSpan dow = new DayOfWeekTimeSpan(day, timeSpan);
 //					Request req = new Request(fname, lname, Pnum, email, room, desc, times);
-//				
-//			}
-//		});
+				
+			ArrayList<DayOfWeekTimeSpan> spans = new ArrayList<DayOfWeekTimeSpan>();
+			}
+		});
 		
 		gbc.gridy ++;
 		gbc.anchor = GridBagConstraints.LINE_END;

@@ -28,6 +28,6 @@ public class ScheduleAndRequest_Tester {
 		requestFrame.getContentPane().add(new ScheduleAndRequestPanel().getPanel());
 		requestFrame.setVisible(true);
 		
-//		requestFrame.pack();
+		requestFrame.pack();
 	}
 }

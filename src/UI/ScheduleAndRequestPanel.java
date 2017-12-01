@@ -70,7 +70,7 @@ public class ScheduleAndRequestPanel {
 		JPanel ScheduleSection = new JPanel();
 		JPanel RequestSection = new JPanel();
 		
-		update = new CalendarPanel(null,null).getPanel();
+		update = new CalendarPanel((String)roomList.getSelectedItem()	, (SemesterType) SemesterList.getSelectedItem()).getPanel();
 		ScheduleSection.add(update,gbc);
 		RequestSection.add(new RequestPanel().getPanel());
 		

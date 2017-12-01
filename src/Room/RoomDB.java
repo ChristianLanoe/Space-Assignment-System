@@ -1,11 +1,12 @@
 package Room;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import Room.Room;
 
-public class RoomDB {
+public class RoomDB implements Serializable {
 	private ArrayList<Room> Rooms;  // All rooms in building
 	
 	public RoomDB() {
@@ -31,5 +32,14 @@ public class RoomDB {
 	
 	public void addRoom(Room room) {
 		Rooms.add(room);
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for(Room room: Rooms) {
+			sb.append(room.toString()).append("\n");
+		}
+		return sb.toString();
 	}
 }

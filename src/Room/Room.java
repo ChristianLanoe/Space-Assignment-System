@@ -1,9 +1,11 @@
 package Room;
 
+import java.io.Serializable;
+
 /*
  * Class that describes a room and its properties
 */
-public class Room implements Comparable<Room>{
+public class Room implements Comparable<Room>, Serializable{
 	private int roomNumber;
 	private String roomName;
 	private int capacity;
@@ -71,6 +73,7 @@ public class Room implements Comparable<Room>{
 		sb.append("\n");
 		sb.append("Length: " + length);
 		sb.append(" Width: " + width);
+		sb.append("\n");
 		
 		return sb.toString();
 	}

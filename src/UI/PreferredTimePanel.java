@@ -2,8 +2,6 @@ package UI;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,9 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import Schedule.DayOfWeekTimeSpan;
-import Schedule.RoomSchedule;
-
 public class PreferredTimePanel {
 	private final JPanel panel;
 	private String room;
@@ -23,14 +18,18 @@ public class PreferredTimePanel {
 	private JComboBox end;
 	private LocalDate date;
 	private DayOfWeek dow;
+	private ButtonGroup bG;
 	
 	public PreferredTimePanel(String room){
 		this.date = date;
 		this.room = room;
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
-		String[] Stimes = {""};
-		String[] Etimes = {""};
+		String[] times = { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00",
+				"10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00",
+				"21:00", "22:00", "23:00" };
+		String[] Stimes = times;
+		String[] Etimes = times;
 		
 		ArrayList<String> ATimes;
 		String[] startTime = null;
@@ -52,7 +51,7 @@ public class PreferredTimePanel {
 		JComboBox end = new JComboBox(Etimes);
 		
 		//Button group so only one day can be selected
-		ButtonGroup bG = new ButtonGroup();
+		bG = new ButtonGroup();
 		bG.add(mon);
 		bG.add(tue);
 		bG.add(wed);
@@ -60,71 +59,6 @@ public class PreferredTimePanel {
 		bG.add(fri);
 		bG.add(sat);
 		bG.add(sun);
-		
-		
-		mon.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				dow = DayOfWeek.MONDAY;
-				System.out.print(DayOfWeek.MONDAY.toString());
-				//TODO ComboBox needs to be updated when Monday selected
-				mon.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent event) {
-						
-						
-					}
-				});
-			}
-		});
-		
-		tue.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				dow = DayOfWeek.TUESDAY;
-				System.out.print("TUESDAY");
-			}
-		});
-		
-		wed.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				dow = DayOfWeek.WEDNESDAY;
-				System.out.print("WEDNESDAY");
-			}
-		});
-		
-		thu.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				dow = DayOfWeek.THURSDAY;
-				System.out.print("THURSDAY");
-			}
-		});
-		
-		fri.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				dow = DayOfWeek.FRIDAY;
-				System.out.print("FRIDAY");
-			}
-		});
-		
-		sat.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				dow = DayOfWeek.SATURDAY;
-				System.out.print("SATURDAY");
-			}
-		});
-		
-		sun.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				dow = DayOfWeek.SUNDAY;
-				System.out.print("SUNDAY");
-			}
-		});
 		
 		//Layout of the buttons
 		pTimeConstraints.gridx = 0;
@@ -157,6 +91,13 @@ public class PreferredTimePanel {
 		panel.add(end, pTimeConstraints);
 		
 	}
+	
+	public void getInfo() {
+		DayOfWeek day = DayOfWeek.valueOf((String)bG.getSelection().getSelectedObjects().toString().toUpperCase());
+		System.out.println(day.toString());
+//		DayOfWeekTimeSpan result = new DayOfWeekTimeSpan() 
+	}
+	
 //	public String[] 
 	public void setStart(JComboBox start){
 		this.start = start;
